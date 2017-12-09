@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <header>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="page.title">
+    <meta name="twitter:card" content="">
+    <style src="css/style.css"></style>
+    <title>pugtest</title>
+  </header>
+  <body>
+    <header class="header"></header>
+    <main class="main">
+      <h2 id="ll" class="main-ttl">タイトル
+      </h2>
+        <section>
+          <h3>section-title
+            <p id="dd">nextnextnextnextnext てこ</p>
+          </h3>
+          <div class="loop">
+            <ul>
+              <li class="ttt">高尾02</li>
+              <li class="ttt">三鷹04</li>
+              <li class="ttt">中野05</li>
+              <li class="ttt">ueno09</li>
+              <li class="ttt">jude01</li>
+            </ul>
+          </div>
+          <div>
+            <ul id="ul">
+            </ul>
+          </div>
+        </section>
+    </main>
+<script>
+  var dd = document.getElementById("dd");
+  var ul = document.getElementById("ul");
+  var arr = [];
+
+
+function yyy(event){
+var kk = "text";
+   var next = event + "今を生きよう" + kk;
+var gg = document.getElementsByClassName("ttt");
+for (var i = 0; i < gg.length; i++) {
+  arr += "<li>" + gg[i].innerHTML + "</li>" ;
+}
+ul.innerHTML = arr;
+
+
+console.log( arr[0] + arr[1] + arr[2] + arr[3] + arr[4] );
+    return next ;
+}
+
+var kkkkkkk = "日本式0";
+function g03(kkkkkkk){
+  var ui = yyy( "それ" + kkkkkkk );
+  dd.innerHTML = ui;
+}
+g03(kkkkkkk);
+</script>
+  </body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+  	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<title>input</title>
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+<style type="text/css" media="screen">
+body{
+	font-size: 1.4em;
+}
+.header{
+background-color: #E8600C;
+margin-bottom: 50px;
+}
+.sec01{
+	padding: 100px 0;
+	background-color: #ff0;
+	display: flex;
+	justify-content: center;
+}
+.form{
+	background-color: #ccc;
+	font-size: 1.2em;
+}
+.form input{
+	display: block;
+	width: 300px;
+	padding: 10px;
+	font-size: 1em;
+}
+.form input:focus{
+	background-color: #000;
+	color: #ffff;
+}
+#output{
+	padding: 20px;
+}
+
+</style>
+</head>
+<body>
+<div class="wrapper">
+	<section class="sec01">
+		<form name="form01" id="form1" class="form">
+			<div class="form">
+				<input type="text" id="kigaku01" name="kigaku01"><label for="kigaku01">sample1</label></input>
+				<input type="text" id="kigaku02" name="kigaku02"><label for="kigaku02">sample2</label></input>
+				<input type="text" id="kigaku03" name="kigaku03"><label for="kigaku03">sample3</label></input>
+			</div>
+			<div class="radio">
+				<input type="radio" name="jjj" id="i1" value="9000"><label for="i1">これこれ1</label></input>
+				<input type="radio" name="jjj" id="i2" value="200"><label for="i2">これこれ2</label></input>
+				<input type="radio" name="jjj" id="i3" value="400"><label for="i3">これこれ3</label></input>
+				<input type="radio" name="jjj" id="i4" value="100"><label for="i4">これこれ4</label></input>
+			</div>
+			<div id="checkbox01">
+				<input type="checkbox" id="check1" name="juusho1" value="500"><label for="check1">gori1</label></input>
+				<input type="checkbox" id="check2" name="juusho2" value="300"><label for="check2">yui</label></input>
+				<input type="checkbox" id="check3" name="juusho3" value="4000"><label for="check3">語も</label></input>
+				<input type="checkbox" id="check4" name="juusho4" value="1"><label for="check4">根暗</label></input>
+			</div>
+			<div id="checkbox02">
+				<input type="checkbox" id="check1" name="juusho1" value="8000"><label for="check1">JJJJJJJJJJJJ</label></input>
+				<input type="checkbox" id="check2" name="juusho2" value="9000"><label for="check2">YYYYYYYYYYYY</label></input>
+				<input type="checkbox" id="check3" name="juusho3" value="40000"><label for="check3">000000000000</label></input>
+				<input type="checkbox" id="check4" name="juusho4" value="1000000"><label for="check4">PPPPPPPPP</label></input>
+			</div>
+		</form>
+	</section>
+	<section class="sec02">
+		<input type="submit" value="送信" id="submit">送信</input>
+		<div id="output">txet</div>
+		<div id="outputradio">radio</div>
+		<div id="outputcheckbox">checkbox</div>
+		<div id="outputcheckbox02">checkbox02</div>
+	</section>
+	<section class="sec03">
+		<form action="" name="form03"></form>
+	</section>
+</div>
+
+<script src="js/jquery-2.2.4.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+$(function (){
+		var checkbox01 = document.getElementById("checkbox01");
+		var checkbox02 = document.getElementById("checkbox02");
+	$("#submit").on("click", function(){
+		var out = document.getElementById("output");
+		var outradio = document.getElementById("outputradio");
+		var outputcheckbox = document.getElementById("outputcheckbox");
+		var outputcheckbox02 = document.getElementById("outputcheckbox02");
+		var price = parseInt(document.form01.kigaku01.value);
+		var price02 = parseInt(document.form01.jjj.value);
+		if(  price > 800 ){
+out.innerHTML = "この値段でいいの?";
+		}else if( 0 < price  ){
+out.innerHTML = "OK" + price + "¥" ;
+		}else{
+out.innerHTML = "ちゃんとした値入れて";
+		}
+
+		if( price02 > 800 ){
+outradio.innerHTML = price02 + "この値段でいいの?";
+		}else{
+outradio.innerHTML = "OK" + price02 + "¥" ;
+}
+
+next(1);
+next(2);
+
+});
+
+function next(g){
+var count = 0;
+var ma = 0;
+
+$( "#checkbox0" + g + " input[type=checkbox]").each(function() {
+	if($(this).prop("checked") ){
+		var price02 = this.value;
+		count += 1;
+		ma += price02 * 1 ;
+	}
+});
+
+if( g == 1){
+outputcheckbox.innerHTML = count + ":" + ma ;
+}else if( g == 2 ){
+outputcheckbox02.innerHTML = count + ":" + ma ;
+}
+if(count == 0 ){
+alert("チェックしてください");
+}
+
+}
+
+
+
+});
+</script>
+</body>
+</html>
