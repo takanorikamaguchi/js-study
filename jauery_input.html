@@ -67,17 +67,27 @@ margin-bottom: 50px;
 				<input type="checkbox" id="check3" name="juusho3" value="40000"><label for="check3">000000000000</label></input>
 				<input type="checkbox" id="check4" name="juusho4" value="1000000"><label for="check4">PPPPPPPPP</label></input>
 			</div>
-		</form>
-	</section>
-	<section class="sec02">
-		<input type="submit" value="送信" id="submit">送信</input>
+			<div class="outputarea">
+			<input type="submit" value="送信" id="submit">送信</input>
 		<div id="output">txet</div>
 		<div id="outputradio">radio</div>
 		<div id="outputcheckbox">checkbox</div>
 		<div id="outputcheckbox02">checkbox02</div>
+			</div>
+		</form>
 	</section>
 	<section class="sec03">
-		<form action="" name="form03"></form>
+		<input type="text" id="urlttl"><label for="urltxt">URLタイトル</label></input>
+		<input type="text" id="urltxt"><label for="urltxt">URL1</label></input>
+		<button type="submit" id="urlbtn">実行</button>
+		<input type="text" id="urlput"><label for="url">urlput</label></input>
+		<textarea id="ouputurltxt" name="urlappend"></textarea>
+		<div id="ouputurl"></div>
+	</section>
+	<section class="sec04">
+		<a href="http://kakaku.com/item/J0000025701/" id="hoveraction" title="これne">http://kakaku.com/item/J0000025701/</a>
+		<input type="text">
+		<div id="sec04put"></div>
 	</section>
 </div>
 
@@ -85,8 +95,10 @@ margin-bottom: 50px;
 <script type="text/javascript">
 $(function (){
 		var checkbox01 = document.getElementById("checkbox01");
+		var check01 = checkbox01.getAttribute("id");
 		var checkbox02 = document.getElementById("checkbox02");
-	$("#submit").on("click", function(){
+		var check02 = checkbox02.getAttribute("id");
+	$("#form1").on("submit", function(e){
 		var out = document.getElementById("output");
 		var outradio = document.getElementById("outputradio");
 		var outputcheckbox = document.getElementById("outputcheckbox");
@@ -107,16 +119,17 @@ outradio.innerHTML = price02 + "この値段でいいの?";
 outradio.innerHTML = "OK" + price02 + "¥" ;
 }
 
-next(1);
-next(2);
+next(check01);
+next(check02);
 
+e.preventDefault();
 });
 
 function next(g){
 var count = 0;
 var ma = 0;
 
-$( "#checkbox0" + g + " input[type=checkbox]").each(function() {
+$( "#" + g + " input[type=checkbox]").each(function() {
 	if($(this).prop("checked") ){
 		var price02 = this.value;
 		count += 1;
@@ -124,17 +137,47 @@ $( "#checkbox0" + g + " input[type=checkbox]").each(function() {
 	}
 });
 
-if( g == 1){
+if( g == check01){
 outputcheckbox.innerHTML = count + ":" + ma ;
-}else if( g == 2 ){
+console.log(g);
+}else if( g == check02 ){
 outputcheckbox02.innerHTML = count + ":" + ma ;
 }
 if(count == 0 ){
 alert("チェックしてください");
 }
+}
+var urlbtn = document.getElementById("urlbtn");
+var urlput = document.getElementById("urlput");
+var ouputurltxt = document.getElementById("ouputurltxt");
+var ouputurl = document.getElementById("ouputurl");
+var urlttl = $("#urltxt").val();
+var urltxt = $("#urltxt").val();
 
+function urloutput( urlttl , urltxt){
+ 	var a = $("<a>");
+ 	a.text(urlttl);
+ 	a.attr("href", urltxt);
+
+ 	var hako = $("<div>").append(a);
+
+ 	$("#ouputurltxt").val(hako.html());
+ 	$("#ouputurl").html(a);
 }
 
+$("#urlbtn").on("click", function(){
+	urloutput( urlttl , urltxt);
+});
+
+$("#hoveraction").on({
+	'mouseenter':function(){
+	var hyo = $(this);
+	var ttl = hyo.attr("title");
+	$("#sec04put").html(ttl);
+	},'mouseleave' : function(){
+	$("#sec04put").html("");
+	}
+});
 
 
 });

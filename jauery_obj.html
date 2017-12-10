@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+  	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<title>OBJ</title>
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+<style type="text/css" media="screen">
+body{
+	font-size: 1.4em;
+}
+.header{
+background-color: #E8600C;
+margin-bottom: 50px;
+}
+.sec01{
+	padding: 100px 0;
+	background-color: #ff0;
+	display: flex;
+	justify-content: center;
+}
+.form{
+	background-color: #ccc;
+	font-size: 1.2em;
+}
+.form input{
+	display: block;
+	width: 300px;
+	padding: 10px;
+	font-size: 1em;
+}
+.form input:focus{
+	background-color: #000;
+	color: #ffff;
+}
+#output{
+	padding: 20px;
+}
+
+</style>
+</head>
+<body>
+<div class="wrapper">
+<div id="out"></div>
+</div>
+
+<script src="js/jquery-2.2.4.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+$(function (){
+
+var obj = {
+	//ui : "デザイン1",
+	//ux : "デザイン2",
+	fl : "デザイン3",
+	desiplay : "デザイン4",
+	web : "デザイン5",
+};
+
+var test = function(ui, ux){
+	this.ui = ui;
+	this.ux = ux;
+	this.tos = function(){
+		return this.ui + "プラス" + this.ux ;
+	};
+};
+
+var uuii = new test("ユーザ-", "インターフェイス");
+var uuxx = new test("ユーザー", "体験");
+
+$("#out").append("obj02 :" + uuii.ui + "<br>\n" );
+$("#out").append("obj02 :" + uuxx.ui + uuxx.ux + "<br>\n" );
+
+
+
+});
+</script>
+</body>
+</html>
