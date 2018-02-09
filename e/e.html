@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie6" lang="ja"><![endif]-->
+<!--[if IE 7 ]><html class="ie7" lang="ja"><![endif]-->
+<!--[if IE 8 ]><html class="ie8" lang="ja"><![endif]-->
+<!--[if IE 9 ]><html class="ie9" lang="ja"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="ja" ng-app="myapp" >
+<head>
+	<meta charset="UTF-8">
+	<title>angularjs</title>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular.min.js"></script>
+<script src="js/myscript2.js"></script>
+
+	<script type="text/javascript">
+
+	</script>
+	<!--[if lt IE 9]>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/lightbox.css">
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<script src="js/selectivizr-min.js"></script>
+<![endif]-->
+</head>
+<body>
+<header id="header">
+	<div class="headerinner">
+	 	<h1>angular</h1>
+		  <div ng-controller="MainController">
+	  	 <p>メンバー数{{members.length}}</p>
+		  	 {{members[0].name}}
+		  	 <div class="rp" ng-repeat="member in members">
+		  	 	<h2><span>{{member.age}}</span>{{member.title}}</h2>
+		  	 	<p>{{member.number}}</p>
+				<img src="img/img-tt{{member.number}}.png" alt="">
+		  	 </div>
+		    <p><input type="text" name="name" ng-model="member.name"><input type="submit" value="add"></p>
+		    <pre>{{member|json}}</pre>
+		  	 <div class="rp" ng-repeat="ttt in ttts">
+		  	 	<h2><span>{{ttt.kkkkk}}</span>これこれ</h2>
+              </div>
+		</div>
+	</div><!-- headerinner -->
+</header>
+
+
+</body>
+</html>

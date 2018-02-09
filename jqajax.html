@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>reamore</title>
+</head>
+<style>
+    .load {
+        display: none;
+    }
+</style>
+
+<body>
+    <section>
+        <h1>js</h1>
+        <p id="loading" class="load">loading</p>
+        <input type="button" id="more" value="kkk">
+    </section>
+    <p id="f"></p>
+<script>
+
+var a = ["ko"];
+console.log(a.length !== 0);
+
+const arr = ["クロノ","悟空","バビディ","ルルーシュ"];
+console.log(Object.getOwnPropertyNames(arr));
+
+
+var f = document.getElementById('f');
+var fmat = document.createDocumentFragment();
+for (var i = 0; i < 10; i++) {
+  var yy = document.createElement('p');
+  yy.innerHTML = "これは作成されてドキュメント"+i;
+  fmat.appendChild(yy);
+}
+
+f.appendChild(fmat);
+
+
+var g9 = "sako sjkk jijghh skoshn cskosj snakmk";
+console.log(g9.match(/\bs\w*\b/g));
+
+const gg3 = '<img src="in.gif">';
+const reg1 = /(\S+)(\s+.+)?/;
+var o = gg3.match(reg1);
+console.log(gg3.match(o[0]));
+
+
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie6" lang="ja"><![endif]-->
+<!--[if IE 7 ]><html class="ie7" lang="ja"><![endif]-->
+<!--[if IE 8 ]><html class="ie8" lang="ja"><![endif]-->
+<!--[if IE 9 ]><html class="ie9" lang="ja"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="ja" ng-app="myApp" >
+<head>
+	<meta charset="UTF-8">
+	<title>angularjs</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+
+	<script type="text/javascr ipt">
+var app = angular.module('myApp', []);
+app.controller('myController', function() {
+  this.members = [
+        { name: 'Tanaka', age: 36 },
+        { name: 'Suzuki', age: 16 },
+        { name: 'Yamada', age: 26 }
+    ];
+});
+	</script>
+	<!--[if lt IE 9]>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/lightbox.css">
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<script src="js/selectivizr-min.js"></script>
+<![endif]-->
+</head>
+<body>
+<header id="header">
+	<div class="headerinner">
+	 	<h1>angular</h1>
+		  <div ng-controller="myController as myCtrl">
+		  	<ul>
+			<li ng-repeat="member in myCtrl.members">
+				{{member.name}}{{member.age}}<br>
+			</li>
+		</ul>
+		<div>
+   {{myCtrl.members.length}}</div>
+
+		</div>
+		<p>メンバー数{{myCtrl.members.length}}</p>
+	</div><!-- headerinner -->
+</header>
+
+<section>
+
+</body>
+</html>

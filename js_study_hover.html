@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>スクロールjs</title>
+</head>
+<style type="text/css" media="screen">
+body {
+    text-align: center;
+}
+
+#header {
+    background-color: #ccc;
+}
+
+.section {
+    width: 100%;
+    height: 1000px;
+}
+
+.test_hover_wrap {
+    max-width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 200px 0;
+    overflow: hidden;
+}
+.test_hover {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  background-color: blue;
+}
+
+@-webkit-keyframes sss {
+  0% {
+    -webkit-transform: matrix(1, 0, 0, 1, 0, 0);
+            transform: matrix(1, 0, 0, 1, 0, 0);
+  }
+  100% {
+    -webkit-transform: matrix(1, 0, 0, 1, 200, 0);
+            transform: matrix(1, 0, 0, 1, 200, 0);
+  }
+}
+
+@keyframes sss {
+  0% {
+    -webkit-transform: matrix(1, 0, 0, 1, 0, 0);
+            transform: matrix(1, 0, 0, 1, 0, 0);
+  }
+  100% {
+    -webkit-transform: matrix(1, 0, 0, 1, 200, 0);
+            transform: matrix(1, 0, 0, 1, 200, 0);
+  }
+}
+
+@-webkit-keyframes zzz {
+  0% {
+    -webkit-transition: 0.01s;
+    transition: 0.01s;
+    -webkit-transform: matrix(1, 0, 0, 1, -200, 0);
+            transform: matrix(1, 0, 0, 1, -200, 0);
+  }
+  100% {
+    -webkit-transition: 0.7s;
+    transition: 0.7s;
+    -webkit-transform: matrix(1, 0, 0, 1, -200, 0);
+            transform: matrix(1, 0, 0, 1, -200, 0);
+  }
+}
+
+@keyframes zzz {
+  0% {
+    -webkit-transition: 0.01s;
+    transition: 0.01s;
+    -webkit-transform: matrix(1, 0, 0, 1, -200, 0);
+            transform: matrix(1, 0, 0, 1, -200, 0);
+  }
+  100% {
+    -webkit-transition: 0.7s;
+    transition: 0.7s;
+    -webkit-transform: matrix(1, 0, 0, 1, 0, 0);
+            transform: matrix(1, 0, 0, 1, 0, 0);
+  }
+}
+
+</style>
+
+<body>
+    <header id="header">
+        <h1 id="next" class="testpp">js hover</h1>
+    </header>
+    <div id="nnn" class="test_hover_wrap">
+        <p id="test0" class="test_hover">javascript</p>
+    </div>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+    var test = document.getElementById('test0');
+    var nnn = document.getElementById('nnn');
+    var over = function(){
+        test.classList.add('tr-over');
+        test.setAttribute("style","transform: matrix(1, 0, 0, 1, 200, 0);transition: 0.7s;");
+    };
+    var out = function(){
+        test.classList.remove('tr-over');
+        test.setAttribute("style","animation: zzz 0.4s ease;");
+    };
+    nnn.addEventListener('mouseover', over ,false);
+    nnn.addEventListener('mouseout', out ,false);
+    </script>
+</body>
+
+</html>

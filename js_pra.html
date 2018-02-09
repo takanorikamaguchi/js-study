@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>reamore</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<style>
+    .load {
+        display: none;
+    }
+    .kkk {
+      padding: 40px;
+      background-color: #ccc;
+      color: #fff;
+    }
+    #box {
+        background-color: #ff0;
+    }
+</style>
+<body>
+<div id="box">声の形</div>
+<script>
+
+
+function dom(domname){
+let body = document.getElementsByTagName('body')[0];
+
+let dom = document.createElement(domname);
+dom.textContent = 'ここが'+ domname +'エリアです。';
+dom.className  = domname;
+if(domname == "header"){
+dom.innerHTML += '<h1>明日サイボーグになっていたら</h1>';
+dom.style.height = '10vh';
+dom.style.backgroundColor = "#ccc";
+}else if(domname == "main"){
+dom.style.height = '80vh';
+dom.style.backgroundColor = "#ff0";
+}else if(domname == "footer"){
+dom.style.height = '10vh';
+dom.style.backgroundColor = "#ccc";
+}
+dom.style.width = '100%';
+ body.appendChild(dom);
+
+
+}
+
+window.onload = function() {
+    dom('header');
+    dom('main');
+    dom('footer');
+
+var box = document.getElementById('box');
+var boxOpa;
+box.style.opacity = 1;
+
+ function fao(){
+    var bopa = parseFloat(box.style.opacity);
+    var opaVlalue = 0.05;
+    var limit = 0;
+    if(bopa > limit){
+        bopa = bopa - opaVlalue;
+        box.style.opacity = bopa;
+        requestAnimationFrame(fao);
+    }
+}
+fao();
+
+};
+
+let result = sum( 1, 2);
+function sum( val 1, val 2) { return val 1 + val 2; }
+console. log( result); // 3
+
+
+</script>
+</body>
+
+</html>

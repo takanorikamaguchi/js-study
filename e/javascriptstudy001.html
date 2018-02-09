@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>js|ストップウォッチ</title>
+
+	<style type="text/css">
+	body{
+	background-color: #e0e0e0;
+	font-family: Arial, sans-serif;
+	text-align: center;}
+	#timerText{
+		color: #00aaff;
+		font-size: 100px;
+		margin: 100px auto;
+		text-shadow:0 1px 0 rbga(255,255,255, 0.5);
+	}
+	.btn{
+		display: inline-block;
+		width: 130px;
+		 background-color: #cccccc;
+		 color:#ffffff;
+		 cursor: pointer;
+		 box-shadow: 0 5px 0 #333333;
+	}
+	.btn + .btn{
+		margin-left: 20px;
+	}
+	.active {
+		opacity: 1.0;
+	}
+	.inactive {
+		opacity: 0.5;
+	}
+	</style>
+</head>
+<body>
+	
+<header id="header">
+	<div class="headerinner">
+	 	<h1>ストップウォッチ</h1>	
+	</div><!-- headerinner -->
+</header>
+
+<section>
+	<h2>javascript</h2>
+	<div id="timerText">0.00</div>
+	<div id="start">start</div>
+	<div id="stop">stop</div>
+	<div id="reset">reset</div>
+</section>
+
+<script type="text/javascript">
+	(function(){
+		'use strict';
+
+		var startTime;
+		var timerId;
+		var elapsedTime = 0;
+		var isRunning = false;
+
+		var startButton = document.getElementById('start');
+		var stopButton = document.getElementById('stop');
+		var resetButton = document.getElementById('reset');
+		var timerText = document.getElementById('timerText');
+
+		function setButtonState(start, stop, reset){
+			startButton.className = start ? 'btn active' : 'btn inactive';
+			stopButton.className = stop ? 'btn active' : 'btn inactive';
+			resetButton.className = reset ? 'btn active' : 'btn inactive';
+		}
+
+		setButtonState(true, false, false);
+
+		startButton.addEventListener('click', function() {
+			if (isRunning) return;
+			isRunning = true;
+			startTime = Date.now();
+			updateTimerText();
+			setButtonState(false, true, false);
+		});
+		stopButton.addEventListener('click', function() {
+			if (!isRunning) return;
+			isRunning = false;
+			elapsedTime += Date.now() - startTime;
+			clearTimeout(timerId);
+			setButtonState(true, false, true);
+		});
+		resetButton.addEventListener('click', function() {
+			if (isRunning) return;
+			timerText.innerHTML = '0.00';
+			elapsedTime = 0;
+			setButtonState(true, false, false);
+		});
+
+
+		function updateTimerText(){
+			timerId = setTimeout(function(){
+				var t = Date.now() - startTime + elapsedTime;
+				timerText.innerHTML = (t/ 1000).toFixed(2);//時間表示をミリ秒を小数点で表示
+				updateTimerText();
+			}, 10);
+		}
+
+	})();
+</script>
+
+</body>
+</html>

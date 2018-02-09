@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>reamore</title>
+</head>
+<style>
+    .load {
+        display: none;
+    }
+</style>
+
+<body>
+    <section>
+        <h1>js</h1>
+        <p id="loading" class="load">loading</p>
+        <input type="button" id="more" value="kkk">
+    </section>
+    <p id="f"></p>
+<script>
+
+var f = document.getElementById('f');
+
+class baseball {
+  constructor(name){
+    this.name = name;
+  }
+  getName(){
+    return this.name;
+  }
+  static toushu(){
+    return '走者';
+  }
+}
+
+var bb = new baseball('田中太郎');
+f.innerHTML += bb.getName();
+console.log(bb.getName());
+f.innerHTML += baseball.toushu();
+
+class at extends baseball{
+  constructor(name, sports){
+    super(name);
+    this.sports = sports;
+  }
+  getName(){
+    return `${this.sports}`;
+  }
+
+}
+var bk = new at('スーも','ストロング');
+console.log(bk.getName());
+
+
+
+</script>
+</body>
+
+</html>

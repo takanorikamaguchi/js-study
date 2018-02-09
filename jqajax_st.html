@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>reamore</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<style>
+    .load {
+        display: none;
+    }
+    #kkk{
+      padding: 40px;
+      background-color: #ccc;
+      color: #fff;
+    }
+</style>
+
+<body>
+    <section>
+        <h1>js</h1>
+        <p id="loading" class="load">loading</p>
+        <input type="button" id="more" value="kkk">
+    </section>
+    <p id="f"></p>
+    <p id="ll"></p>
+    <p id="kkk"></p>
+
+<script>
+var m = document.getElementById('f');
+var ll = document.getElementById('ll');
+var kkk = document.getElementById('kkk');
+
+var nnn = {
+  skoak : 'ksoako',
+  isau : 'pppp',
+  posi : 'salpl'
+};
+let jsusju = { b : '@'};
+var c = Object.assign(nnn, jsusju);
+
+  Object.keys(c).forEach(function(key){
+    m.innerHTML += key + 'は' + c[key] + "ぼ" + "<br>" ;
+});
+
+
+function who(name){
+ this.name = name;
+}
+
+who.prototype.getD = function(){
+console.log('人' + this.name);
+};
+
+var pp = new who('どこ');
+pp.getD();
+
+var arr  = ['a','とら','ネット','mac','mini'];
+arr.splice(3,0, "smmmmmmmmmm")
+var gg = arr[Symbol.iterator]();
+
+for (var i of arr ) {
+ console.log(i);
+}
+
+//ll.innerHTML = gg.next().value+gg.next().value;
+//ll.innerHTML += gg.next().value+'<br>'+gg.next().value;
+
+const yy = [2,9,128,12,12];
+for (var i = 0; i < yy.length; i++) {
+  if(yy[i] == 12){
+    console.log('クロス。');
+    break;
+  }
+console.log(yy[i]+"邪念");
+}
+
+
+var spe = {
+aaa : function(sss){
+var itis = sss();
+  ll.innerHTML = itis+"固定観念とそれ";
+}
+};
+
+
+
+
+nextaary = [
+{ name :'猫に小判',mail:'huhudabnsj@saio.com'},
+{ name :'寅次郎',mail:'toratora@sai.com'}
+];
+
+var arr2 = [];
+nextaary.forEach(function(Element, j, nextaary){
+  for(var key in Element){
+    if(key == 'mail'){
+      arr2.push(Element[key],Element[name]);
+    }
+  }
+});
+
+var text = 'I am hiro h2 adachimitsuru';
+var ls = text.replace(/(.)\s/g,function(m0,m1){
+  return ',' + m1;
+});
+console.log(ls);
+
+
+
+</script>
+</body>
+
+</html>

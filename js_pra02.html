@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>reamore</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<style>
+    .load {
+        display: none;
+    }
+    .kkk {
+      padding: 40px;
+      background-color: #ccc;
+      color: #fff;
+    }
+    #box {
+        background-color: #ff0;
+    }
+</style>
+<body>
+<div id="box">声の形</div>
+<script>
+
+'use strict';
+
+var sports = "baseball";
+
+function sportsb() {
+    console.log('baseball');
+}
+function sportss() {
+    console.log('soccer');
+}
+function sportst() {
+    console.log('tabletanis');
+}
+function sportsg() {
+    console.log('golf');
+}
+
+var sportsobj = {
+    'basebasll': sportsb,
+    'soccer': sportss,
+    'tabletanis': sportst,
+    'golf': sportsg
+};
+
+if (sports in sportsobj) {
+    sportsobj[sports]();
+}
+
+var html = [];
+var count = 10;
+for (var i = 0; i < 10 ; i++) {
+html.push("ヒーロー見参！！！");
+}
+document.querySelector('#box').innerHTML = html.join();
+
+
+const foo = (name, callback) => {
+    setTimeout(() => { callback(name); }, 100);
+};
+
+const curry = (method, ...args) => {
+    return (callback) => {
+        args.push(callback);
+        return method.apply({}, args);
+    };
+};
+
+
+const contlloer = (generator) => {
+    const iterator = generator();
+    const advancer = (response) => {
+        var state;
+        state = iterator.next(response);
+        if(!state.done){
+            state.value(advancer);
+        }
+    };
+    advancer();
+};
+
+
+contlloer(function* () {
+    const a = yield curry(foo, 'a');
+    const b = yield curry(foo, 'b');
+    const c = yield curry(foo, 'c');
+    console.log(a,b,c);
+});
+
+
+</script>
+</body>
+
+
+
+</html>
