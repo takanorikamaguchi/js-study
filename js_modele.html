@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>modale</title>
+</head>
+<style>
+    html,body {
+        width: 100%;
+        height: 100%;
+    }
+
+.wrapper {
+    width: 100%;
+    height: 100%;
+}
+
+    .load {
+        display: none;
+    }
+
+    .modelwapper {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 10;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(51, 51, 51, 0.5);
+    }
+
+    .inner {
+        position: absolute;
+        top: -50%;
+        left: 50%;
+        z-index: 11;
+        width: 50vw;
+        height: 50vh;
+        transform: translate(-50%,-50%);
+        animation: up ease 0.5s forwards;
+        background-color: #fff;
+    }
+
+@keyframes up {
+    0%{ 
+    top: -50%;
+    }
+    100%{ 
+    top: 50%;
+    }
+}
+
+.con {
+    display: inline-block;
+    background-color: #fff;
+    color: #333;
+}
+
+img {
+    max-width: 100%;
+}
+
+
+</style>
+
+<body>
+    <div id="addModaleImg" class="addModaleImg"></div>
+    <div class="wrapper">
+    <section>
+        <h1>js</h1>
+        <p id="loading" class="load">loading</p>
+        <input type="button" id="more" value="kkk">
+        <ul class="list">
+          <li class="item"><img class="itemImg" src="img/img-section-pc.png" alt=""></li>
+          <li class="item"><img class="itemImg" src="img/img-section-pc.png" alt=""></li>
+          <li class="item"><img class="itemImg" src="img/img-section-pc.png" alt=""></li>
+          <li class="item"><img class="itemImg" src="img/img-service-pc.jpg" alt=""></li>
+          <li class="item"><img class="itemImg" src="img/img-service-pc.jpg" alt=""></li>
+        </ul>
+    </section>
+    <p id="f"></p>
+    </div>
+<script>
+
+(function(){
+
+let addModaleImg = document.getElementById('addModaleImg');
+let actionblock = document.getElementsByClassName('item');
+let imgClass = document.getElementsByClassName('itemImg');
+let addDom = document.getElementsByClassName('wrapper');
+var modaleDom;
+
+
+for (let i = 0; i < actionblock.length; i++) {
+    actionblock[i].addEventListener("click", function(){
+
+        modaleDom = document.createElement('div');
+        let modaleImg = document.createElement('img');
+        modaleImg.className = 'modelImg';
+        modaleImg.setAttribute('src', this.children[0].src);
+        modaleDom.className = 'modelwapper';
+        modaleDom.id = 'modelId';
+        modaleDom.innerHTML = '<div class="inner"></div>';
+        modaleDom.children[0].appendChild(modaleImg);
+
+       let imgLength = document.createElement('div');
+       imgLength.innerHTML = '<div class="con">' + (i + 1) + '/' + imgClass.length + '</div>';
+
+       let btnright = document.createElement('div');
+       btnright.id = "rightBtn";
+       btnright.innerHTML = '<span class="rightBtn">&gt;</span>';
+
+       let btnleft = document.createElement('div');
+       btnleft.id = "leftBtn";
+       btnleft.innerHTML = '<span class="rightBtn">&lt;</span>';
+
+       modaleDom.children[0].appendChild(imgLength);
+       modaleDom.children[0].appendChild(btnright);
+       modaleDom.children[0].appendChild(btnleft);
+
+       console.log(this.children[0].src ); 
+       addModaleImg.appendChild(modaleDom);
+            let removeId = document.getElementById('modelId');
+            modelId.addEventListener("click", function(){
+                this.parentNode.removeChild(this);
+            });
+
+
+      });
+}
+
+})();
+
+
+function n(){
+    addModaleImg.addEventListener("click", function(){
+    let not = document.getElementById('modelId');
+        not.parentNode.removeChild(not);
+        console.log('JJJ');
+});
+}
+
+</script>
+</body>
+
+</html>

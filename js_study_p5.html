@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>js | p5</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            width: 300px;
+            margin: 0 auto;
+            padding: 10px;
+            background-color: #000;
+            color: aliceblue;
+            text-align: center;
+        }
+
+        .wrapper {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            z-index: 1;
+        }
+
+        canvas {
+            position: absolute;
+            z-index: 0;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+
+        var x, y, r = 50;
+        var angle = 0;
+        var strokeColor = [];
+
+        function setup() {
+            createCanvas(windowWidth, windowHeight);
+            background('#000');
+            strokeWeight(0.1);
+            frameRate(10);
+        }
+
+        function draw() {
+            for (var i = 0; i < width; i++) {
+                let w = random(width);
+                let h = random(height);
+                strokeColor = ["#1e90ff", "#00bfff", "#87cefa", "#b0e0e6", "#afeeee", "#00ffff"];
+                var c = round(random(4));
+                stroke(strokeColor[c]);
+                ellipse(w, h, w * 2, h * 2, );
+                noFill();
+                smooth();
+            }
+
+        }
+
+        function mousePressed() {
+            r += 10;
+        }
+
+        function keyPressed() {
+            if (keyCode === UP_ARROW) {
+                r += 10;
+            }
+            return false;
+        }
+
+        function windowResized() {
+            resizeCanvas(windowWidth, windowHeight);
+        }
+    </script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+            <h1>
+                <span>js | p5</span>
+            </h1>
+        </header>
+    </div>
+
+</body>
+
+</html>

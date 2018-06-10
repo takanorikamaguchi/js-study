@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>reamore</title>
+</head>
+<style>
+    .load {
+        display: none;
+    }
+</style>
+
+<body>
+    <section>
+        <h1 class="nnn">js</h1>
+        <div class="nnn">nonono</div>
+        <div class="nnn">dddddd</div>
+        <p id="loading" class="load">loading</p>
+        <input type="button" id="more" value="kkk">
+        <ul class="list">
+          <li class="item"><img src="img/img-section-pc.png" alt=""></li>
+          <li class="item"><img src="img/img-section-pc.png" alt=""></li>
+          <li class="item"><img src="img/img-section-pc.png" alt=""></li>
+          <li class="item"><img src="img/img-service-pc.jpg" alt=""></li>
+          <li class="item"><img src="img/img-service-pc.jpg" alt=""></li>
+        </ul>
+    </section>
+    <p id="f"></p>
+<script>
+
+var pc = "pc",
+    sp = "sp",
+    tab = "tab",
+    zz = "zz",
+    changeClass = "item";
+
+(function(){
+  var imgTagparent = document.getElementsByClassName(changeClass);
+
+
+window.addEventListener('resize',function(){
+
+resImg(pc, tab, changeClass,"え",767);
+
+var second = new resImg(tab, sp, changeClass, 'Dの意思',480);
+var tree = new resImg(sp, zz, changeClass, 'FF外',340);
+// var nnn = new resImg(zz, sp, changeClass, 'Dの決意');
+// nnn.ttt();
+console.log(imgTagparent[0].children[0].getAttribute('src').indexOf("sp"));
+
+  });
+
+
+})();
+
+
+
+var resImg = function(chageBefore, chageAfter, changeClass,DDD,width){
+
+  this.changeWidth = width;
+  console.log(this.changeWidth);
+  this.chageDevaiceMin = chageBefore;
+  this.chageDevaiceMax = chageAfter;
+  let imgTagparent = document.getElementsByClassName(changeClass);
+
+  if(this.changeWidth > window.innerWidth ){
+    for (var i = 0; i < imgTagparent.length; i++) {
+      let imgSrc = imgTagparent[i].children[0];
+      let imgSrcR = imgSrc.src.replace(this.chageDevaiceMin,this.chageDevaiceMax);
+      imgTagparent[i].children[0].setAttribute('src',imgSrcR);
+    }
+
+  } else {
+
+    for (var j = 0; j < imgTagparent.length; j++) {
+      let imgSrc = imgTagparent[j].children[0];
+      let imgSrcR = imgSrc.src.replace(this.chageDevaiceMax,this.chageDevaiceMin);
+      imgTagparent[j].children[0].setAttribute('src',imgSrcR);
+    }
+  }
+  console.log(DDD);
+}
+
+var second = new nnn(777);
+
+ nnn.prototype.resImg02 = function(chageBefore, chageAfter, changeClass,DDD){
+  this.width = 999;
+this.changeWidth = this.width;
+console.log(this.changeWidth);
+this.chageDevaiceMin = chageBefore;
+this.chageDevaiceMax = chageAfter;
+let imgTagparent = document.getElementsByClassName(changeClass);
+
+if(this.changeWidth > window.innerWidth ){
+  for (var i = 0; i < imgTagparent.length; i++) {
+    let imgSrc = imgTagparent[i].children[0];
+    let imgSrcR = imgSrc.src.replace(this.chageDevaiceMin,this.chageDevaiceMax);
+    imgTagparent[i].children[0].setAttribute('src',imgSrcR);
+  }
+
+} else {
+
+  for (var j = 0; j < imgTagparent.length; j++) {
+    let imgSrc = imgTagparent[j].children[0];
+    let imgSrcR = imgSrc.src.replace(this.chageDevaiceMax,this.chageDevaiceMin);
+    imgTagparent[j].children[0].setAttribute('src',imgSrcR);
+  }
+}
+console.log(DDD);
+}
+
+
+function nnn(ggg){
+  this.width = ggg;
+  console.log(this.width);
+}
+
+second.resImg02(tab, sp, changeClass, 'Dの意思',480);
+
+
+function addTextclass( className, domNumber, text ){
+var text = text;
+var className = className;
+var domNumber = domNumber - 1 ;
+var dom = document.createElement('div');
+dom.className = 'slider_chatch';
+dom.innerHTML = '<p class="chatch_text">' + text + '</p>';
+
+var addName = document.getElementsByClassName(className);
+
+addName[domNumber].appendChild(dom);
+
+}
+
+addText('nnn', 1 , 'Hello world');
+addText('nnn', 2 , 'これこれ');
+addText('nnn', 3 , 'もしも');
+
+
+
+</script>
+</body>
+
+</html>

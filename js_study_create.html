@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>js | create</title>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			background-color: #ccc;
+		}
+
+		.canvas {
+			background-color: #fff;
+		}
+	</style>
+</head>
+
+<body>
+	<header>
+		<h1>
+			<span>js | create</span>
+		</h1>
+	</header>
+	<script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
+	<script type="text/javascript">
+
+		window.addEventListener('load', init);
+
+
+		function random(n) {
+			return Math.floor(Math.random() * n);
+		}
+
+
+		function init() {
+
+			var stage = new createjs.Stage('canvas');
+			stage.enableMouseOver();
+
+			var shape = new createjs.Shape();
+			var www = new createjs.Shape();
+
+			shape.graphics.beginFill('green');
+			shape.graphics.drawCircle(random(2) * 400, 400, 100);
+
+			shape.graphics.beginFill('biue');
+			shape.graphics.drawCircle(random(2) * 300, 200, 100);
+
+			shape.graphics.beginFill('skyblue');
+			shape.graphics.drawCircle(random(1) * 300, 0, 100);
+
+			www.graphics.beginFill('#cccccc');
+			www.graphics.drawRect(0, 500, 200, 100);
+
+			stage.addChild(shape);
+			stage.addChild(www);
+
+			var t = new createjs.Text('HELLO', "30px serif", "blue");
+			t.x = 400;
+			t.y = 400;
+			stage.addChild(t);
+
+			www.addEventListener('mouseover', handleMouseOver);
+
+			function handleMouseOver(event) {
+				www.graphics
+					.clear()
+					.beginFill('blue')
+					.drawRect(0, 500, 200, 100);
+			}
+
+			var angle = 0;
+
+		createjs.Ticker.addEventListener("tick", handleTick);
+			function handleTick(event) {
+				www.x = Math.sin(angle) * 50;
+				www.y = Math.cos(angle) * 50;
+				angle += 0.1;
+
+				stage.update();
+			}
+
+		}
+
+	</script>
+	<canvas id="canvas" class="canvas" width="900" height="600">
+		Canvas not suported!
+	</canvas>
+</body>
+
+</html>

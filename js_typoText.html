@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title> JS / text</title>
+</head>
+<style>
+    .load {
+        display: none;
+    }
+    .l-section {
+        background-color: #ccc;
+    }
+</style>
+
+<body>
+    <section class="l-section">
+        <h1>js / text</h1>
+        <div class="textArea">
+            <div class="textArea_item">next stage</div>
+        </div>
+
+    </section>
+<script>
+
+(function(){
+
+var text =  document.getElementsByClassName('textArea_item'),
+textBlock = '',
+textB = [],
+Num = 1;
+textNum = 0;
+
+textB = text[0].textContent.split('');
+text[0].innerHTML = '<span id="text"></span><span id="go"></span>';
+var inputId = document.getElementById('go');
+var textId = document.getElementById('text');
+
+function randomNun(n){
+    var randomNum =  1;
+    return randomNum ;
+}
+
+ function textUp(){
+
+  inputId.textContent = textB[Math.floor(Math.random () * 10)];
+
+  var timer = setTimeout(function(){
+    textUp();
+    Num ++;
+    if( Num > 6 ){
+        Num = 0;
+        var adddom = document.createElement('span');
+            adddom.textContent += textB[textNum];   
+            textId.appendChild(adddom);        
+        textNum ++;   
+    }
+
+ } , 50);
+
+ if( textB.length <= textNum  ){
+    inputId.style.display = 'none';
+        clearTimeout(timer);
+    }
+ }
+
+
+textUp();
+
+
+})();
+
+
+
+</script>
+</body>
+
+</html>

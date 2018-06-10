@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>js | p5</title>
+    <style>
+        h1 {
+            background-color: #000;
+            color: aliceblue;
+            text-align: center;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+
+        var x, y, r = 50;
+        var angle = 0;
+        var strokeColor = [];
+
+        function setup() {
+            createCanvas(windowWidth, windowHeight);
+            noStroke();
+            background('skyblue');
+
+        }
+
+        function draw() {
+            push();
+            translate(width / 2, height / 2);
+            x = sin(radians(angle)) * r;
+            y = cos(radians(angle)) * r;
+            ellipse(x, y, 10, 10);
+
+            angle += 2;
+            r += 0.1;
+        }
+
+        function mousePressed() {
+            r += 10;
+        }
+
+        function keyPressed() {
+            if (keyCode === UP_ARROW) {
+                r += 10;
+            }
+            return false;
+        }
+
+        function windowResized() {
+            resizeCanvas(windowWidth, windowHeight);
+        }
+    </script>
+</head>
+
+<body>
+    <header>
+        <h1>
+            <span>js | p5</span>
+        </h1>
+    </header>
+
+</body>
+
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title> JS / text</title>
+</head>
+<style>
+    .load {
+        display: none;
+    }
+    .l-section {
+        background-color: #000;
+    }
+    .textArea_item span{
+        color: #fff;
+        opacity: 0.4;
+        transition: all .3s;
+    }
+    .textArea_item span.itemSub {
+        opacity: 1;
+    }
+</style>
+
+<body>
+    <section class="l-section">
+        <h1>js / text</h1>
+
+        <div class="textArea">
+          <ul class="textArea_list textClass">
+            <li class="textArea_item">Some people feel the rain. Others just get wet.</li>
+            <li class="textArea_item">I like to be a free spirit. Some don’t like that, but that’s the way I am.</li>
+            <li class="textArea_item">To say Good bye is to die a little.</li>
+            <li class="textArea_item">I do not seek, I find.</li>
+            <li class="textArea_item">Before you point your fingers, make sure your hands are clean.</li>
+            <li class="textArea_item">If you don’t practice you don’t deserve to win.</li>
+          </ul>
+        </div>
+
+    </section>
+    <p id="f"></p>
+<script>
+
+(function(){
+
+var text =  document.getElementsByClassName('textArea_item'),
+textBlock = '',
+Num = 0;
+
+ function textUp(classNum){
+  let textArray = [];
+  let textArrayBox = [];
+    textArray = text[classNum].textContent.split('');
+      for (let i = 0; i < textArray.length; i++) {
+      textBlock += "<span class='n'>" + textArray[i] + "</span>" ;
+      }
+      textArrayBox[classNum] += textBlock;
+      text[classNum].innerHTML = textBlock;
+      textBlock = '';
+ }
+
+for (let h = 0; h < text.length; h++) {
+ textUp(h);
+}
+
+window.onload = function(){
+    function addClass() {
+    var addTextClass = document.getElementsByClassName('textClass');
+    var nnn =  addTextClass[0].getElementsByTagName('span');
+    
+        if( Num >= nnn.length ){
+                        clearTimeout(timer);
+                        return;
+        }
+        nnn[Num].className = 'itemSub';
+        Num += 1;
+        console.log(Num);
+        var timer = setTimeout(addClass ,10);
+    } 
+     addClass();
+}
+
+
+})();
+
+
+
+</script>
+</body>
+
+</html>

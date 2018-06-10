@@ -1,6 +1,1 @@
-﻿id,date,title,sentence,image
-00001,14/11/02,タイトルA,説明文A,img01.gif
-00002,14/11/03,タイトルB,説明文B,img02.gif
-00003,14/11/04,タイトルC,説明文C,img03.gif
-00004,14/11/05,タイトルD,説明文D,img04.gif
-00005,14/11/06,タイトルE,説明文E,img05.gif
+id,date,title,sentence,image1,2014/11/2,kkkk,ggggg,img01.gif2,2014/11/3,kkkk,ggggg,img02.gif3,2014/11/4,kkkk,ggggg,img03.gif4,2014/11/5,kkkk,ggggg,img04.gif5,2014/11/6,kkkk,ggggg,img05.gif

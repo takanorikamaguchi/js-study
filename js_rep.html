@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>reamore</title>
+</head>
+<style>
+    .load {
+        display: none;
+    }
+</style>
+
+<body>
+    <section>
+        <h1>js</h1>
+        <p id="loading" class="load">loading</p>
+        <input type="button" id="more" value="kkk">
+        <ul class="list">
+          <li class="item"><img src="img/img-section-pc.png" alt=""></li>
+          <li class="item"><img src="img/img-section-pc.png" alt=""></li>
+          <li class="item"><img src="img/img-section-pc.png" alt=""></li>
+          <li class="item"><img src="img/img-service-pc.jpg" alt=""></li>
+          <li class="item"><img src="img/img-service-pc.jpg" alt=""></li>
+        </ul>
+    </section>
+    <p id="f"></p>
+<script>
+
+(function(){
+
+var pc = "pc",
+    sp = "sp",
+    tab = "tab",
+    zz = "zz",
+    changeClass = "item";
+  var imgTagparent = document.getElementsByClassName(changeClass);
+
+
+
+window.addEventListener('resize',function(){
+
+resImg(pc, tab, changeClass,"え",767);
+
+var second = new resImg(tab, sp, changeClass, 'Dの意思',480);
+var tree = new resImg(sp, zz, changeClass, 'FF外',340);
+// var nnn = new resImg(zz, sp, changeClass, 'Dの決意');
+// nnn.ttt();
+console.log(imgTagparent[0].children[0].getAttribute('src').indexOf("sp"));
+
+
+  });
+
+
+})();
+
+
+
+var resImg = function(chageBefore, chageAfter, changeClass,DDD,width){
+
+  this.changeWidth = width;
+  this.chageDevaiceMin = chageBefore;
+  this.chageDevaiceMax = chageAfter;
+  let imgTagparent = document.getElementsByClassName(changeClass);
+
+  if(this.changeWidth > window.innerWidth ){
+    for (var i = 0; i < imgTagparent.length; i++) {
+      let imgSrc = imgTagparent[i].children[0];
+      let imgSrcR = imgSrc.src.replace(this.chageDevaiceMin,this.chageDevaiceMax);
+      imgTagparent[i].children[0].setAttribute('src',imgSrcR);
+    }
+
+  } else {
+
+    for (var j = 0; j < imgTagparent.length; j++) {
+      let imgSrc = imgTagparent[j].children[0];
+      let imgSrcR = imgSrc.src.replace(this.chageDevaiceMax,this.chageDevaiceMin);
+      imgTagparent[j].children[0].setAttribute('src',imgSrcR);
+    }
+  }
+  console.log(DDD);
+
+}
+
+
+
+</script>
+</body>
+
+</html>
