@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vue.js</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <style type="text/css">
+    .done {
+      text-decoration: line-through;
+      color: red;
+    }
+  </style>
+</head>
+<body>
+ <section id="app" class="container">
+   <div class="tt">
+<h1>Vue.js</h1>
+</div>
+   <p>{{todos.length}}残りの数{{remaining}}</p>
+   <p><button v-on:click="archive()" class="btn btn-danger">Bye</button></p>
+  <ul class="list-unstyled">
+    <li v-for="todo in todos">
+      <label>
+      <input type="checkbox" v-model="todo.done" />
+      <span v-bind:class="{'done': todo.done}">{{todo.text}}</span>
+      </label>
+      <button v-on:click="removeTodo(todo)" class="btn btn-warning" >exit</button>
+    </li>
+  </ul>
+  <p><input type="text" v-model="todoTxet"><br>
+  <button v-on:click="addTodo()" class="btn btn-sm">add</button></p>
+</section>
+<p class="nnn" height="100">test1</p>
+<p>test2</p>
+<p>test3</p>
+<p class="nnn" height="150">test4</p>
+<p>test5</p>
+<p>test6((jjj))</p>
+<p>test7()(hska)()</p>
+<p>test8</p>
+<p>test9</p>
+<p>test10</p>
+<p>*これは注釈</p>
+ <script type="text/javascript">
+   var app = new Vue({
+    el: '#app',
+    data:  {
+      todoTxet : '',
+      todos : [
+      {text:'グータラだ', done: false},
+      ]
+    },
+      methods: {
+        addTodo: function() {
+          var newTodo = this.todoTxet.trim();
+          if(!newTodo) { return; }
+          this.todos.push(
+            {text:newTodo, done:false}
+            );
+          this.todoTxet = '';
+        },
+        archive: function(){
+          var remains = [],todos = this.todos;
+          for (var i = 0; i < todos.length; i++) {
+            var todo = todos[i];
+            if(!todo.done){
+              remains.push(todo);
+            }
+            this.todos = remains;
+          }
+        },
+        removeTodo: function(todo){
+          var todos = this.todos,index = todos.indexOf(todo);
+          todos.splice(index, 1);
+        }
+      },
+      computed: {
+       remaining: function(){
+        var count = 0,
+            todos = this.todos;
+       for (var i = 0; i < todos.length; i++) {
+        if(!todos[i].done){
+          count ++;
+        }
+       }
+       return count;
+      }
+     }
+   });
+ </script>
+</body>
+</html>

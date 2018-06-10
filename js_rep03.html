@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>reamore</title>
+</head>
+<style>
+    .load {
+        display: none;
+    }
+</style>
+
+<body>
+    <section>
+        <h1 class="nnn">js</h1>
+        <div class="nnn">nonono</div>
+        <div class="nnn">dddddd</div>
+        <p id="loading" class="load">loading</p>
+        <input type="button" id="more" value="kkk">
+        <ul class="list">
+          <li class="item"><img src="img/img-section-pc.png" alt=""></li>
+          <li class="item"><img src="img/img-section-pc.png" alt=""></li>
+          <li class="item"><img src="img/img-section-pc.png" alt=""></li>
+          <li class="item"><img src="img/img-service-pc.jpg" alt=""></li>
+          <li class="item"><img src="img/img-service-pc.jpg" alt=""></li>
+        </ul>
+    </section>
+    <p id="f"></p>
+<script>
+
+var pc = "pc",
+    sp = "sp",
+    tab = "tab",
+    zz = "zz",
+    changeClass = "item";
+
+(function(){
+  var imgTagparent = document.getElementsByClassName(changeClass);
+
+function changeW(width,chageBefore, chageAfter, changeClass){
+ this.width = width;
+  this.cC = changeClass;
+  this.cB = chageBefore;
+  this.cA = chageAfter;
+}
+
+changeW.prototype.resImg = function(){
+
+  var cC = this.cC;
+  var cB = this.cB;
+  var cA = this.cA;
+      console.log(this.width);
+
+  this.changeWidth = this.width;
+  this.chageDevaiceMin = cB;
+  this.chageDevaiceMax = cA;
+  let imgTagparent = document.getElementsByClassName(cC);
+
+  if(this.changeWidth > window.innerWidth ){
+    for (var i = 0; i < imgTagparent.length; i++) {
+      let imgSrc = imgTagparent[i].children[0];
+      let imgSrcR = imgSrc.src.replace(this.chageDevaiceMin,this.chageDevaiceMax);
+      imgTagparent[i].children[0].setAttribute('src',imgSrcR);
+    }
+      console.log(this.chageDevaiceMin);
+
+  } else {
+
+    for (var j = 0; j < imgTagparent.length; j++) {
+      let imgSrc = imgTagparent[j].children[0];
+      let imgSrcR = imgSrc.src.replace(this.chageDevaiceMax,this.chageDevaiceMin);
+      imgTagparent[j].children[0].setAttribute('src',imgSrcR);
+    }
+  }
+      console.log(this.chageDevaiceMax);
+
+};
+
+
+window.addEventListener('resize',function(){
+
+    if(window.innerWidth >= 768){
+      var change01 = new changeW(767,tab,pc,"item");
+      change01.resImg();
+      console.log(change01);
+    }else if(window.innerWidth < 768 && window.innerWidth > 380 ){
+      var change02 = new changeW(480,sp,tab,"item");
+      change02.resImg();
+      console.log(change02);
+    }
+
+  });
+
+
+
+
+
+})();
+
+
+
+</script>
+</body>
+
+</html>

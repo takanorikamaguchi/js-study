@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>reamore</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<style>
+    .load {
+        display: none;
+    }
+    .kkk {
+      padding: 40px;
+      background-color: #ccc;
+      color: #fff;
+    }
+    #box {
+        background-color: #ff0;
+    }
+</style>
+<body>
+<div id="box">
+    <p><input type="file" id="fileInput"></p>
+    <div id="result"></div>
+</div>
+<script>
+var file = document.getElementById('fileInput');
+var result = document.getElementById('result');
+
+if(window.File){
+
+ file.addEventListener("change", function(ev){
+   var fileData = ev.target.files[0];
+   var reader = new FileReader();
+   reader.onerror = function(){
+    result.innerHTML = "読み込みに失敗";
+   };
+   console.log("1");
+   reader.onload = function(){
+     console.log("2");
+    var parr = reader.result.split("\n");
+    var carr = [];
+    for (var i = 0; i < parr.length; i++) {
+        carr[i] = parr[i].split(",");
+       console.log(carr[i]);
+    }
+    var csvpush;
+    for (var i = 0; i < carr.length; i++) {
+          csvpush = '<div class="wrap">';
+        for (var j = 0; j < carr[i].length; j++) {
+              csvpush += "<div>";
+              csvpush += carr[i][j];
+              csvpush += "</div>";
+        }
+          csvpush += '</div>';
+      }
+      result.innerHTML += csvpush;
+   };
+ reader.readAsText(fileData);
+ }, false);
+
+}
+
+
+</script>
+</body>
+
+</html>

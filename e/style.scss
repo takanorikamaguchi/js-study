@@ -1,0 +1,119 @@
+@charset "UTF-8";
+
+/* ------all------ */
+
+
+a{
+	text-decoration: none;
+	color: #000000;
+}
+a:hover{
+	text-decoration: none;
+	color: #000000;
+}
+
+body{font-family: "Times New Roman", "游明朝", YuMincho, "Hiragino Mincho ProN",Meiryo, serif;
+}
+
+.leftbox{
+	float: left;
+}
+
+.rightbox{
+	float: right;
+}
+.wrapper{
+	background-image: url(img/wrapper_background.png);
+	background-size: cover;
+}
+
+
+/* ---------------------------------
+header
+------------------------------------ */
+
+#header{
+	width: 1024px;
+  height: 300px;
+	margin: 0 auto;
+	.header__inner{
+		padding:0px 12px 0 12px;
+		.centerbox {
+			width: 400px;
+			float: left;
+			img{
+				width: 400px;
+				height: 200px;
+			}
+		}
+	}
+}
+.gmenu{
+	width: 298px;
+	padding-top: 60px;
+	height: 58px;
+	text-align: center;
+	border:1px solid #000000;
+}
+
+/* ---------------------------------
+contents
+------------------------------------ */
+
+.contents{
+	width: 1024px;
+	height: 600px;
+	margin: 0 auto;
+		 .centerbox{
+			float: left;
+			.contet_centerbox__postbox{
+				width: 128px;
+				height: 128px;
+				padding: 10px 10px 10px 10px;
+				margin: 0 25px 0 25px;
+				border:1px solid #000000;
+			float: left;
+			}
+		 }
+		}
+
+
+/* ---------------------------------
+section
+------------------------------------ */
+
+/* ---------------------------------
+sidebar
+------------------------------------ */
+
+.sideleft{
+	width: 200px;
+	padding: 10px 0 10px 0px;
+	margin-left: 12px;
+}
+
+.sideright{
+	width: 200px;
+	padding: 10px 0 10px 0px;
+	margin-right: 12px;
+}
+
+/* ---------------------------------
+footer
+------------------------------------ */
+
+.footer__inner{
+	width: 1024px;
+	height: 200px;
+	margin: 0 auto;
+	.footer__inner__aboutbox{
+		width: 400px;
+		float: left;
+	}
+	small{
+		display: block;
+		width: 300px;
+		float: right;
+	}
+}
+

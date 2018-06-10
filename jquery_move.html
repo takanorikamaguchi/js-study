@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>reamore</title>
+</head>
+<link rel="stylesheet" href="../scroll-action/css/reset.css">
+<style>
+    * {
+      box-sizing: border-box;
+    }
+    .load {
+        display: none;
+    }
+    .silider-section {
+      max-width: 500px;
+      width: 100%;
+      padding: 20px;
+      background-color: #ccc;
+      overflow: hidden;
+    }
+    .slider-list {
+      position: relative;
+      display: flex;
+    }
+    .slider-item {
+      padding: 10px;
+      background-color: #fff;
+    }
+    .active {
+      background-color: red;
+      color: #fff;
+    }
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<body>
+    <section>
+        <h1>js</h1>
+        <p id="loading" class="load">loading</p>
+        <input type="button" id="more" value="kkk">
+    </section>
+    <section class="silider-section">
+      <ul class="slider-list">
+        <li class="slider-item active">item1</li>
+        <li class="slider-item">item2item2</li>
+        <li class="slider-item">item3item</li>
+        <li class="slider-item">item4itemitem</li>
+        <li class="slider-item">item5itemitemitem</li>
+      </ul>
+      <div class="s-nav">
+        <button id="btn01" class="s-nav-btn">back</button>
+        <button id="btn02" class="s-nav-btn">next</button>
+      </div>
+    </section>
+    <p id="f"></p>
+<script>
+
+$(function(){
+   var navList = $('.slider-list'),
+    navitem = $('.slider-list li'),
+    num = 0,
+    width = parseInt(0) ;
+      var navitemwidtharr = [];
+      navitem.each(function(){
+         navitemwidtharr.push($(this).width());
+      });
+  $('.silider-section button').on("click", function(){
+    var $this = $(this),
+        thisId = $(this).attr('id').replace(/[^0-9]/g, '');
+
+        if( thisId == '01' && 0 < num && num <= 3){
+          num --;
+          width += parseFloat(-navitemwidtharr[num]);
+          $('.slider-list').animate({'marginLeft': width +'px'});
+        }
+        if(thisId == '02' && 0 <= num && num < 3){
+          width += parseFloat(navitemwidtharr[num]);
+          $('.slider-list').animate({'marginLeft': width +'px'});
+          num ++;
+        }
+    });
+
+});
+
+
+</script>
+</body>
+
+</html>
