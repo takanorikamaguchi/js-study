@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>js | canvas Arts</title>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			background-color: #ccc;
+		}
+		.canvas {
+			background-color: #fff;
+		}
+
+	</style>
+</head>
+
+<body>
+
+	<header>
+		<h1>
+			<span>js | canvas practice</span>
+		</h1>
+	</header>
+	<canvas id="canvas" class="canvas">
+		Canvas not suported!
+	</canvas>
+	<script type="text/javascript">
+
+(function(){
+
+
+    window.requestAnimFrame = (function () {
+        return window.requestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            window.oRequestAnimationFrame ||
+            window.msRequestAnimationFrame ||
+            function (callback) {
+                window.setTimeout(callback, 1000 / 600);
+            };
+    })();
+
+var canvas = document.getElementById('canvas')
+var ww = window.innerWidth;
+var wh = window.innerHeight;
+
+canvas.setAttribute("width",ww);
+canvas.setAttribute("height",wh);
+
+
+var ctx = canvas.getContext('2d');
+
+var Ball = function(x , s){
+
+  var x = rand(10 , 20);
+  var y = rand(30 , 40);
+
+  this.x = x;
+  this.y = s;
+
+}
+
+var text = function(){
+  ctx.lineWidth = 1;
+  ctx.fillStyle = "#000";
+  ctx.font = "33px cursive";
+  ctx.fillText("Line DO it", ww/2 , wh/2 );
+}
+
+Ball.prototype.drow = function(){
+
+  let bmoveLine = this.x + 100;
+
+  ctx.beginPath();
+  ctx.moveTo(bmoveLine + 0.5, 100);
+  ctx.lineTo(this.x + 0.5 , wh - 10 );
+  ctx.strokeStyle = '#ccc';
+  ctx.lineWidth = '1.5';
+  ctx.closePath();
+  ctx.stroke();
+}
+
+
+function rand( x , y ){
+ return Math.floor( Math.random() * (x + y) * 10 );
+}
+
+var num = 100;
+var pati = [];
+
+for (var i = 0; i < 5; i++) {
+    pati[i] = new Ball(100, 100);
+    pati[i].x = Math.random() * canvas.width;
+    pati[i].y = Math.random() * canvas.height;
+    pati[i].drow();
+}
+
+moveBall();
+text();
+
+var count01 = 0;
+var count02 = 0;
+var count03 = 0;
+var count04 = 0;
+var count05 = 0;
+
+function moveBall(){
+
+  requestAnimFrame(moveBall);
+
+  ctx.clearRect(0,0, canvas.width, canvas.height);
+  text();
+
+  for (var n = 0; n < 5; n++) {
+
+      switch(n){
+
+          case 1:
+
+            if(count01 < 90 ){
+            pati[n].x += 1;
+            } else {
+             pati[n].x -= 1;
+            }
+            pati[n].drow();
+            if(count01 == 180){
+              count01 = 0;
+            }
+
+          break;
+
+          case 2:
+
+            if(count02 < 150 ){
+            pati[n].x += 1;
+            } else {
+             pati[n].x -= 1;
+            }
+            pati[n].drow();
+            if(count02 == 300){
+              count02 = 0;
+            }
+
+          break;
+
+          case 3:
+
+            if(count03 < 150 ){
+            pati[n].x += 1;
+            } else {
+             pati[n].x -= 1;
+            }
+            pati[n].drow();
+            if(count03 == 240){
+              count03 = 60;
+            }
+
+          break;
+
+          case 4:
+
+            if(count04 < 260 ){
+            pati[n].x += 1;
+            } else {
+             pati[n].x -= 1;
+            }
+            pati[n].drow();
+            if(count04 == 400){
+              count04 = 120;
+            }
+
+          break;
+
+          case 5:
+
+            if(count < 190 ){
+            pati[n].x += 1;
+            } else {
+             pati[n].x -= 1;
+            }
+            pati[n].drow();
+            if(count == 280){
+              count05 = 100;
+            }
+
+          break;
+
+
+    }
+
+
+  }
+
+ count01 ++;
+ count02 ++;
+ count03 ++;
+ count04 ++;
+ count05 ++;
+
+ console.log("GO");
+
+}
+
+
+})();
+
+	</script>
+</body>
+
+</html>

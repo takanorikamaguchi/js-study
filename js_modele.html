@@ -57,6 +57,23 @@
     color: #333;
 }
 
+.Btn {
+    position: absolute;
+    top: 50%;
+    display: inline-block;
+    padding: 10%;
+    background-color: #ff0;
+    font-size: 20px;
+}
+#rightBtn {
+    right: 0;
+    transform: translate(100%, 0);
+}
+#leftBtn {
+    left: 0;
+    transform: translate(-100%, 0);
+}
+
 img {
     max-width: 100%;
 }
@@ -72,11 +89,11 @@ img {
         <p id="loading" class="load">loading</p>
         <input type="button" id="more" value="kkk">
         <ul class="list">
-          <li class="item"><img class="itemImg" src="img/img-section-pc.png" alt=""></li>
-          <li class="item"><img class="itemImg" src="img/img-section-pc.png" alt=""></li>
-          <li class="item"><img class="itemImg" src="img/img-section-pc.png" alt=""></li>
-          <li class="item"><img class="itemImg" src="img/img-service-pc.jpg" alt=""></li>
-          <li class="item"><img class="itemImg" src="img/img-service-pc.jpg" alt=""></li>
+          <li class="item"><img class="itemImg" src="img/img-mo-01.png" alt=""></li>
+          <li class="item"><img class="itemImg" src="img/img-mo-02.png" alt=""></li>
+          <li class="item"><img class="itemImg" src="img/img-mo-03.png" alt=""></li>
+          <li class="item"><img class="itemImg" src="img/img-mo-04.png" alt=""></li>
+          <li class="item"><img class="itemImg" src="img/img-mo-05.png" alt=""></li>
         </ul>
     </section>
     <p id="f"></p>
@@ -90,14 +107,26 @@ let actionblock = document.getElementsByClassName('item');
 let imgClass = document.getElementsByClassName('itemImg');
 let addDom = document.getElementsByClassName('wrapper');
 var modaleDom;
+var modaleNum;
+var Num;
 
+
+var imgh = [];
+
+for (var n = 0; n < actionblock.length; n++) {
+    imgh.push(actionblock[n].children[0].getAttribute("src"));
+}
+console.log(imgh[0]);
 
 for (let i = 0; i < actionblock.length; i++) {
     actionblock[i].addEventListener("click", function(){
+    modaleNum = i + 1;
+    Num = i;
 
         modaleDom = document.createElement('div');
         let modaleImg = document.createElement('img');
         modaleImg.className = 'modelImg';
+        modaleImg.id = 'js-img';
         modaleImg.setAttribute('src', this.children[0].src);
         modaleDom.className = 'modelwapper';
         modaleDom.id = 'modelId';
@@ -109,23 +138,48 @@ for (let i = 0; i < actionblock.length; i++) {
 
        let btnright = document.createElement('div');
        btnright.id = "rightBtn";
+       btnright.className = "Btn";
        btnright.innerHTML = '<span class="rightBtn">&gt;</span>';
 
        let btnleft = document.createElement('div');
        btnleft.id = "leftBtn";
+       btnleft.className = "Btn";
        btnleft.innerHTML = '<span class="rightBtn">&lt;</span>';
 
        modaleDom.children[0].appendChild(imgLength);
        modaleDom.children[0].appendChild(btnright);
        modaleDom.children[0].appendChild(btnleft);
 
-       console.log(this.children[0].src ); 
        addModaleImg.appendChild(modaleDom);
-            let removeId = document.getElementById('modelId');
+
+            var removeId = document.getElementById('modelId');
+            let removeImg = document.getElementById('js-img');
             modelId.addEventListener("click", function(){
                 this.parentNode.removeChild(this);
             });
+            let rightBtnId = document.getElementById('rightBtn');
+            rightBtnId.addEventListener("click", function(e){
+                e.stopPropagation();
+                if(Num == 4 ){
+                    return;
+                }
+                Num ++;
+                modaleNum ++;
+                removeImg.src = imgh[Num];
+                imgLength.innerHTML = '<div class="con">' + modaleNum + '/' + imgClass.length + '</div>';
+            });
 
+            let leftBtnId = document.getElementById('leftBtn');
+            leftBtnId.addEventListener("click", function(e){
+                e.stopPropagation();
+                if(Num == 0){
+                    return;
+                }
+                Num --;
+                modaleNum --;
+                removeImg.src = imgh[Num];
+                imgLength.innerHTML = '<div class="con">' + modaleNum + '/' + imgClass.length + '</div>';
+            });
 
       });
 }

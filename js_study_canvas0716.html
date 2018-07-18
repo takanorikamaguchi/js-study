@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>js | canvas Arts</title>
+    <style>
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: #ccc;
+    }
+
+    .canvas {
+        background-color: #333;
+    }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>
+      <span>js | canvas practice</span>
+    </h1>
+    </header>
+    <canvas id="c" class="canvas">
+        Canvas not suported!
+    </canvas>
+    <script type="text/javascript">
+
+window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame;
+
+var canvas = document.getElementById('c'),
+    ctx = canvas.getContext('2d'),
+    w = canvas.width = window.innerWidth,
+    h = canvas.height = window.innerHeight,
+    maxNum = 100,
+    sankBox = [];
+
+function sank(x,y) {
+
+    this.setox = this.ox = x*this.random(3,1);
+    this.setoy = this.oy = y*this.random(3,1);
+    this.setxx = this.xx = x + 10;
+    this.setyy = this.yy = y + 10;
+    this.setmx = this.mx = x + 30;
+    this.vx = this.random(3,1);
+    this.vy = this.random(8,1);
+
+    this.color = "#ffffff";
+
+    ctx.beginPath();
+    ctx.moveTo(this.setox, this.setoy);
+    ctx.lineTo(this.setxx, this.setyy);
+    ctx.lineTo(this.setox, this.setyy);
+    ctx.closePath();
+    ctx.fill();
+    console.log('ぼ');
+
+}
+
+
+sank.prototype = {
+
+    constructor: sank,
+
+    drow: function(){
+
+        ctx.beginPath();
+        ctx.moveTo(this.setox, this.setoy);
+        ctx.lineTo(this.setxx, this.setyy);
+        ctx.lineTo(this.setox, this.setyy);
+        ctx.closePath();
+
+        ctx.fill();
+
+        this.update();
+
+    },
+
+
+    update: function(){
+
+        this.setox += 1;
+        this.setxx += 1;
+        // this.setoy += 1;
+
+        if( this.setox > w ){
+
+        this.setox += -(w + 200);
+        this.setxx += -(w + 200);
+
+        }
+
+
+    },
+
+    random: function(max, min){
+        return Math.random() * (max = min) + min;
+    }
+
+}
+
+
+for (var v = 0; v < maxNum; v+=3) {
+    var x = maxNum * Math.floor(Math.random() * 10);
+    var y = maxNum * Math.floor(Math.random() * 10);
+
+    sankBox.push(new sank(x,y));
+
+}
+
+
+setTimeout(function(){
+moveSank();
+
+        ctx.beginPath();
+        ctx.moveTo(30, 30);
+        ctx.lineTo(40, 50);
+        ctx.lineTo(30, 50);
+        ctx.fill();
+
+}, 1000);
+
+    function moveSank(){
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0,0,w,h);
+        ctx.fillStyle = '#000000';
+        for (var i in sankBox ) {
+            sankBox[i].drow();
+        }
+
+    window.requestAnimationFrame(moveSank);
+
+
+   }
+
+
+
+    </script>
+</body>
+
+</html>

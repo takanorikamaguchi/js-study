@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>js | canvas Arts</title>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			background-color: #ccc;
+		}
+		.canvas {
+			background-color: #fff;
+		}
+
+	</style>
+</head>
+
+<body>
+
+	<header>
+		<h1>
+			<span>js | canvas practice</span>
+		</h1>
+	</header>
+	<canvas id="canvas" class="canvas">
+		Canvas not suported!
+	</canvas>
+	<script type="text/javascript">
+
+(function(){
+
+
+    window.requestAnimFrame = (function () {
+        return window.requestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            window.oRequestAnimationFrame ||
+            window.msRequestAnimationFrame ||
+            function (callback) {
+                window.setTimeout(callback, 5000 / 8000);
+            };
+    })();
+
+var canvas = document.getElementById('canvas')
+var ww = window.innerWidth;
+var wh = window.innerHeight;
+var countX = 0,
+    countY = 0,
+    countR = 0;
+
+canvas.setAttribute("width",ww);
+canvas.setAttribute("height",wh);
+
+var ctx = canvas.getContext('2d');
+
+var Ball = function(x,s,r){
+
+  var x = 0;
+  var y = 0;
+  var r = 0;
+
+  this.x = x;
+  this.y = s;
+  this.r = r;
+  this.co = '#cccccc';
+}
+
+var text = function(){
+  ctx.fillStyle = "#000";
+  ctx.font = "33px cursive";
+  ctx.fillText("Line DO it", ww/2 , wh/2 );
+}
+
+Ball.prototype.drow = function() {
+
+  ctx = canvas.getContext('2d');
+  let bmoveLine = this.x + 100;
+
+  ctx.beginPath();
+  ctx.arc(this.x, this.y, this.r, 0, Math.PI*2 , false);
+  ctx.fillStyle = this.co;
+  ctx.closePath();
+  ctx.fill();
+    console.log(Math.floor(Math.random()*4));
+
+}
+
+
+function rand( x , y ){
+ return Math.floor( Math.random() * (x + y) * 10 );
+}
+
+var num = 100;
+var pati = [];
+var pi;
+var rcolor = ["#00bfff","#87ceeb","#afeeee","#e0ffff","#1e90ff"];
+
+for (var j = 0; j < wh/50 ; j++) {
+     for (var i = 0; i < ww/50 + 1; i++) {
+       pati[i] = new Ball(100, 100, this.pi);
+       pati[i].co = rcolor[Math.floor(Math.random()*4)];
+       pati[i].x = countX;
+       pati[i].y = countY;
+           pati[i].r = countR;
+           pati[i].drow();
+           countX += 50;
+           countR += 1;
+           if(ww < countX - 50 ){
+            countX = 0;
+           }
+           if( countR < 30 ){
+            countR = 20;
+           }
+     }
+    countY += 50;
+    if( countY > wh + 100 ){
+      y = 0
+    }
+
+}
+
+
+moveBall();
+text();
+
+function moveBall(){
+
+  requestAnimFrame(moveBall);
+
+  ctx.clearRect(0,0, canvas.width, canvas.height);
+  text();
+
+    for (var j = 0; j < wh/50 ; j++) {
+        for (var i = 0; i < ww/50 + 1; i++) {
+           pati[i].co = rcolor[0];
+           pati[i].x = countX;
+           pati[i].y = countY;
+           pati[i].r = countR;
+           pati[i].drow();
+           countX += 50;
+           countR += 1;
+           if(ww < countX - 50 ){
+            countX = 0;
+           }
+           if( countR > 30 ){
+            countR = 20;
+           }
+        }
+       countY += 50;
+      if( countY > wh + 100 ){
+      countY = 0
+      }
+    }
+
+
+  }
+
+
+
+})();
+
+	</script>
+</body>
+
+</html>

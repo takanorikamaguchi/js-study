@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>js | Tree</title>
+<style>
+    .lsection {
+        padding: 5rem;
+    }
+</style>
+</head>
+
+<body>
+    <header>
+        <h1>
+            <span>js | Tree</span>
+        </h1>
+    </header>
+
+    <script src="js/three.js" type="text/javascript"></script>
+    <script src="js/OrbitControls.js" type="text/javascript"></script>
+<script type="text/javascript">
+    let canvas = document.getElementById('stage');
+
+    window.addEventListener('load',init);
+
+
+function init(){
+
+    let width = 950;
+    let height = 540;
+
+    let renderer = new THREE.WebGLRenderer({
+        canvas: document.getElementById('stage')
+    });
+
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(width, height);
+
+    let scene = new THREE.Scene();
+    let camera = new THREE.PerspectiveCamera(45, width / height);
+    camera.position.set(20, 20, 20);
+    camera.lookAt(new THREE.Vector3(0,0,0));
+
+    let meshFloor = new THREE.Mesh(
+        new THREE.BoxGeometry(2000, 0.1, 2000),
+        new THREE.MeshStandardMaterial({ color : 0x808080, roughness: 0.0 })
+        );
+
+    meshFloor.receiveShadow = true;
+    scene.add(meshFloor);
+
+    const meshKnot = new THREE.Mesh(
+        new THREE.TorusKnotGeometry(3, 1, 100, 16),
+        new THREE.MeshStandardMaterial({color : 0xAA0000, roughness: 0.0 }),
+        );
+    meshKnot.position.set(0,5,0);
+    meshKnot.castShadow = true;
+    scene.add(meshKnot);
+
+     let box = new THREE.BoxGeometry(100,100,100);
+     let boxMaterial = new THREE.MeshNormalMaterial();
+     let mesh02 = new THREE.Mesh( boxMaterial , box );
+     scene.add(mesh02);
+
+
+    let light = new THREE.SpotLight(0xffffff, 2, 100, Math.PI / 4, 1);
+    light.castShadow = true;
+    light.shadow.mapSize.width = 2048;
+    light.shadow.mapSize.height = 2048;
+    scene.add(light);
+
+
+tick();
+
+    function tick(){
+
+        renderer.render(scene, camera);
+
+        let t = ( Date.now() / 500 );
+        let r = 20.8;
+        let lx = r * Math.cos(t);
+        let lz = r * Math.sin(t);
+        let ly = 20.0 + 5.0 * Math.sin(t/3.0);
+        light.position.set(lx,ly,lz);
+
+        requestAnimationFrame(tick);
+        }
+}
+
+</script>
+    <section class="lsection">
+        <canvas id="stage"></canvas>
+    </section>
+</body>
+
+</html>

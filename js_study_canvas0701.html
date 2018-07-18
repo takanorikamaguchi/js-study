@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>js | canvas Arts</title>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			background-color: #ccc;
+		}
+		.canvas {
+			background-color: #fff;
+		}
+
+	</style>
+</head>
+
+<body>
+
+	<header>
+		<h1>
+			<span>js | canvas practice</span>
+		</h1>
+	</header>
+	<canvas id="canvas" class="canvas">
+		Canvas not suported!
+	</canvas>
+	<script type="text/javascript">
+
+(function(){
+
+    window.requestAnimFrame = (function () {
+        return window.requestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            window.oRequestAnimationFrame ||
+            window.msRequestAnimationFrame ||
+            function (callback) {
+                window.setTimeout(callback, 1000 / 600);
+            };
+    })();
+
+var canvas = document.getElementById('canvas')
+var ww = window.innerWidth;
+var wh = window.innerHeight;
+
+canvas.setAttribute("width",ww);
+canvas.setAttribute("height",wh);
+
+
+var ctx = canvas.getContext('2d');
+
+var Ball = function(x,s,r){
+
+  var x = rand(10 , 20);
+  var y = rand(30 , 40);
+
+  this.x = x;
+  this.y = s;
+  this.r = r;
+  this.co = '#cccccc';
+}
+
+var text = function(){
+  ctx.lineWidth = 1;
+  ctx.fillStyle = "#000";
+  ctx.font = "33px cursive";
+  ctx.fillText("Line DO it", ww/2 , wh/2 );
+}
+
+Ball.prototype.drow = function(){
+
+  ctx = canvas.getContext('2d');
+  let bmoveLine = this.x + 100;
+
+  ctx.beginPath();
+  ctx.arc(this.x, this.y, this.r, 0, Math.PI*2 , false);
+  ctx.fillStyle = this.co;
+  ctx.lineWidth = '10';
+  ctx.closePath();
+  ctx.fill();
+  ctx.stroke();
+
+}
+
+
+function rand( x , y ){
+ return Math.floor( Math.random() * (x + y) * 10 );
+}
+
+var num = 100;
+var pati = [];
+var pi;
+
+for (var i = 0; i < 5; i++) {
+
+    this.pi = rand(10 , 10);
+
+    pati[i] = new Ball(100, 100, this.pi);
+    pati[i].x = Math.random() * canvas.width;
+    pati[i].y = Math.random() * canvas.height;
+    pati[i].drow();
+
+}
+
+moveBall();
+text();
+
+var count01 = 0;
+var count02 = 0;
+var count03 = 0;
+var count04 = 0;
+var count05 = 0;
+var ang = 0;
+
+function moveBall(){
+
+  requestAnimFrame(moveBall);
+
+  ctx.clearRect(0,0, canvas.width, canvas.height);
+  text();
+
+  for (var n = 0; n < 5; n++) {
+
+      switch(n){
+
+          case 1:
+           pati[n].co = '#ff0000';
+            if(count01 < 90 ){
+
+            pati[n].x += 5;
+            pati[n].r +=1
+
+            } else {
+             pati[n].x -= 5;
+             pati[n].r -= 1;
+            }
+            pati[n].drow();
+            if(count01 == 180){
+              count01 = 0;
+            }
+
+          break;
+
+          case 2:
+
+           ang += 1 * Math.PI / 360;
+           pati[n].co = '#ffff00';
+
+           let mvx = 0;
+
+           let vx = Math.floor(200 * Math.cos(ang) + mvx);
+           let vy = Math.floor(200 * Math.sin(ang) + mvx);
+
+             pati[2].x = 500;
+             pati[n].x += vx;
+
+            if(count02 < 150 ){
+             pati[n].y += 1;
+
+            } else {
+             // pati[n].y -= 100;
+
+            }
+            pati[n].drow();
+            if(count02 == 300){
+              count02 = 0;
+            }
+            console.log(vx);
+
+
+          break;
+
+          case 3:
+
+            if(count03 < 150 ){
+             pati[n].r += 1;
+            } else {
+             pati[n].r -=1
+            }
+            pati[n].drow();
+            if(count03 == 240){
+              count03 = 60;
+            }
+
+          break;
+
+          case 4:
+
+            if(count04 < 260 ){
+            pati[n].x += 1;
+            } else {
+             pati[n].x -= 1;
+            }
+            pati[n].drow();
+            if(count04 == 400){
+              count04 = 120;
+            }
+
+          break;
+
+          case 5:
+
+            if(count < 190 ){
+            pati[n].x += 1;
+            } else {
+             pati[n].x -= 1;
+            }
+            pati[n].drow();
+            if(count == 280){
+              count05 = 100;
+            }
+
+          break;
+
+    }
+
+
+  }
+
+ count01 ++;
+ count02 ++;
+ count03 ++;
+ count04 ++;
+ count05 ++;
+
+
+}
+
+
+})();
+
+	</script>
+</body>
+
+</html>

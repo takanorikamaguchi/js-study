@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="UTF-8">
+    <title>reamore</title>
+</head>
+<style>
+    .load {
+        display: none;
+    }
+</style>
+
+<body>
+    <section>
+        <h1 class="nnn">js</h1>
+        <div class="nnn">nonono</div>
+        <div class="nnn">dddddd</div>
+        <p id="loading" class="load">loading</p>
+        <input type="button" id="more" value="kkk">
+        <ul class="list">
+          <li class="item"><img src="img/img-section-pc.png" alt=""></li>
+          <li class="item"><img src="img/img-section-pc.png" alt=""></li>
+          <li class="item"><img src="img/img-section-pc.png" alt=""></li>
+          <li class="item"><img src="img/img-service-pc.jpg" alt=""></li>
+          <li class="item"><img src="img/img-service-pc.jpg" alt=""></li>
+        </ul>
+    </section>
+    <p id="f"></p>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+
+function changeImg( ){
+
+var changeWindow = 768;
+var windowWidth = window.innerWidth;
+
+if( changeWindow > windowWidth ){
+
+$('.item').each(function(index, el) {
+  $(this).empty();
+});
+
+$('.item:nth-child(1)').append('<img src="img/img-01.png" alt="">');
+$('.item:nth-child(2)').append('<img src="img/img-02.png" alt="">');
+$('.item:nth-child(3)').append('<img src="img/img-03.png" alt="">');
+
+}else{
+
+$('.item').each(function(index, el) {
+  $(this).empty();
+});
+
+$('.item:nth-child(1)').append('<img src="img/img-section-pc.png" alt="">');
+$('.item:nth-child(2)').append('<img src="img/img-section-pc.png" alt="">');
+$('.item:nth-child(3)').append('<img src="img/img-section-pc.png" alt="">');
+
+}
+
+}
+
+$(window).on('load resize orientationchange',function(){
+  changeImg();
+});
+
+
+
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>js | canvas Arts</title>
+    <style>
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: #ccc;
+    }
+
+    .canvas {
+        background-color: #fff;
+    }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>
+      <span>js | canvas practice</span>
+    </h1>
+    </header>
+    <canvas id="canvas" class="canvas">
+        Canvas not suported!
+    </canvas>
+    <script type="text/javascript">
+    (function() {
+
+        window.requestAnimFrame = (function() {
+            return window.requestAnimationFrame ||
+                window.webkitRequestAnimationFrame ||
+                window.mozRequestAnimationFrame ||
+                window.oRequestAnimationFrame ||
+                window.msRequestAnimationFrame ||
+                function(callback) {
+                    window.setTimeout(callback, 5000 / 8000);
+                };
+        })();
+
+        var canvas = document.getElementById('canvas')
+        var ww = window.innerWidth;
+        var wh = window.innerHeight;
+        var countX = 0,
+            countY = 0,
+            countR = 0;
+        var patiNum = 200;
+
+
+        canvas.setAttribute("width", ww);
+        canvas.setAttribute("height", wh);
+
+        var ctx = canvas.getContext('2d');
+
+        var Ball = function(xx, yy, vx, vy, r) {
+
+            var x = xx;
+            var y = yy;
+            var r = 0;
+
+            this.x = x;
+            this.y = y;
+            this.vx = vx;
+            this.vy = vy;
+            this.r = r;
+            this.co = '#cccccc';
+
+        }
+
+        var text = function() {
+            ctx.fillStyle = "#afeeee";
+            ctx.font = "33px cursive";
+            ctx.fillText("Line DO it", ww / 2, wh / 2);
+        }
+
+        Ball.prototype.drow = function() {
+
+            ctx = canvas.getContext('2d');
+
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2, false);
+            ctx.fillStyle = this.co;
+            ctx.closePath();
+            ctx.fill();
+            console.log(Math.floor(Math.random() * 4));
+
+        }
+
+        Ball.prototype.move = function() {
+
+            this.x += this.vx;
+            this.y += this.vy;
+
+            if (this.x + this.r > canvas.width || this.x - this.r < 0) {
+                this.vx *= -1;
+            }
+            if (this.y + this.r > canvas.height || this.y - this.r < 0) {
+                this.vy *= -1;
+            }
+        }
+
+        function rand(min, max) {
+            return Math.floor(Math.random() * (max - min + 1) + min);
+        }
+
+        var num = 100;
+        var pati = [];
+        var pi;
+        var rcolor = ["#00bfff", "#87ceeb", "#afeeee", "#e0ffff", "#1e90ff"];
+
+        for (var j = 0; j < patiNum; j++) {
+
+            pati[j] = new Ball(rand(200, 1000), rand(400, 8000), rand(3, -70), rand(40, 8), this.pi);
+            pati[j].co = rcolor[0];
+            // pati[j].x = countX;
+            // pati[j].y = countY;
+            pati[j].r = countR;
+            pati[j].drow();
+            countR += 1;
+
+            if (countR > 30) {
+                countR = 20;
+            }
+
+        }
+
+
+        moveBall();
+        text();
+
+        function moveBall() {
+
+            requestAnimFrame(moveBall);
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            text();
+
+            for (var j = 0; j < patiNum; j++) {
+                pati[j].co = rcolor[0];
+                pati[j].r = countR;
+                countR += 1;
+                pati[j].drow();
+                pati[j].move();
+                if (countR > 30) {
+                    countR = 20;
+                }
+            }
+
+
+        }
+
+
+
+    })();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Scorll</title>
+</head>
+<style>
+    .l_section {
+      padding: 5rem;
+    }
+    h1 {
+      padding: 2rem;
+      text-align: center;
+      color: #fff;
+    }
+    .inner {
+      padding: 15rem;
+      font-size: 1.3rem;
+      color: #fff;
+      font-weight: bold;
+    }
+    section {
+      opacity: 0;
+      transition: all 0.3s;
+    }
+    section.ani {
+      opacity: 1;
+      background-color: #000;
+    }
+    section:nth-child(1){
+      background-color: #52FF5E;
+    }
+    section:nth-child(2){
+      background-color: #E8B00C;
+    }
+    section:nth-child(3){
+      background-color: #FF0000;
+    }
+    section:nth-child(4){
+      background-color: #0E0CE8;
+    }
+    section:nth-child(5){
+      background-color: #0DFF85;
+    }
+    section:nth-child(5){
+      background-color: #ccc;
+    }
+</style>
+
+<body>
+  <div class="wrapper"></div>
+    <section>
+        <h1>js | scroll</h1>
+    </section>
+    <section class="l_section">
+      <div class="inner">part01</div>
+    </section>
+    <section class="l_section addfade">
+      <div class="inner">part02</div>
+    </section>
+    <section class="l_section addfade">
+      <div class="inner">part03</div>
+    </section>
+    <section class="l_section addfade">
+      <div class="inner">part04</div>
+    </section>
+    <section class="l_section">
+      <div class="inner">part05</div>
+    </section>
+<script>
+
+var addScrollClass = document.getElementsByClassName('addfade');
+
+window.addEventListener('scroll',function(){
+
+let scrollNumSub;
+if( navigator.userAgent.indexOf('webkit') ){
+  scrollNumSub = document.documentElement;
+}else{
+  scrollNumSub = document.body;
+}
+
+let scrollNum = scrollNumSub.scrollTop ;
+
+for (let j = 0; j < addScrollClass.length; j++) {
+
+let scrollElement = addScrollClass[j].getBoundingClientRect();
+
+  if( scrollElement.top + window.outerHeight * 0.7 < scrollNum  ){
+    addScrollClass[j].classList.add('ani');
+  }
+}
+
+
+});
+
+</script>
+</body>
+
+</html>

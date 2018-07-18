@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>js | canvas Arts</title>
+    <style>
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: #ccc;
+    }
+
+    .canvas {
+        background-color: #333;
+    }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>
+      <span>js | canvas practice</span>
+    </h1>
+    </header>
+    <canvas id="canvas" class="canvas">
+        Canvas not suported!
+    </canvas>
+    <script type="text/javascript">
+    (function() {
+
+
+        window.requestAnimFrame = (function() {
+            return window.requestAnimationFrame ||
+                window.webkitRequestAnimationFrame ||
+                window.mozRequestAnimationFrame ||
+                window.oRequestAnimationFrame ||
+                window.msRequestAnimationFrame ||
+                function(callback) {
+                    window.setTimeout(callback, 1000 / 60);
+                };
+        })();
+
+        var canvas = document.getElementById('canvas'),
+            ctx = canvas.getContext('2d');
+        var ww = window.innerWidth;
+        var wh = window.innerHeight;
+        var countR = 4;
+        var patiNum = 200;
+        var imageData;
+        var textN = ['JS DO it','RRRRRR','MMMMM'];
+
+        function clear(){
+            ctx.clearRect(0,0,ww,wh);
+        }
+
+
+        canvas.setAttribute("width", ww);
+        canvas.setAttribute("height", wh);
+
+        var ctx = canvas.getContext('2d');
+
+        var Ball = function(xx, yy, r) {
+
+            var x = xx;
+            var y = yy;
+            var r = 3;
+
+            this.vx = Math.random() * 10 - 5;
+            this.vy = Math.random() * 10 - 5;
+
+            this.x = this.vx;
+            this.y = this.vy;
+
+
+            this.r = r;
+            this.co = '#afeeee';
+            this.d = Math.round(Math.random() * 360);
+            this.s = Math.pow(Math.ceil(Math.random() * 40), .7);
+
+            this.setP = function(n,k){
+                this.x = n;
+                this.y = k;
+            }
+
+            this.drow = function(){
+            ctx.shadowColor = '#000';
+            ctx.shadowOffsetX = 0;
+            ctx.shadowOffsetY = 2;
+            ctx.shadowBlur = 3;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2, false);
+                    ctx.fillStyle = this.co;
+                    ctx.closePath();
+                    ctx.fill();
+            }
+
+        }
+
+        var text = function() {
+
+            this.text = textN[0];
+            ctx.shadowColor = '#000';
+            ctx.shadowOffsetX = 0;
+            ctx.shadowOffsetY = 2;
+            ctx.shadowBlur = 3;
+            ctx.fillStyle = "#000000";
+            ctx.font = "200px cursive";
+            ctx.fillText(this.text, 50, wh / 2);
+            var a = ctx.measureText('JS DO it');
+
+        }
+
+        Ball.prototype.drow = function() {
+
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2, false);
+            ctx.fillStyle = this.co;
+            ctx.closePath();
+            ctx.fill();
+
+        }
+
+        Ball.prototype.move = function() {
+
+            this.x += this.vx;
+            this.y += this.vy;
+
+            if (this.x + this.r > canvas.width || this.x - this.r < 0) {
+                this.vx *= -1;
+            }
+            if (this.y + this.r > canvas.height || this.y - this.r < 0) {
+                this.vy *= -1;
+            }
+        }
+
+        function rand(min, max) {
+            return Math.floor(Math.random() * (max - min + 1) + min);
+        }
+
+
+      var particles = [];
+
+        function viewText(width, height) {
+
+            var ctxt = canvas.getContext('2d');
+            imageData = ctx.getImageData(0,0,window.innerWidth,window.innerWidth);
+
+            imageDatan = imageData.data;
+                         // console.log(imageData);
+
+            var ix = 0,
+                iy = 0,
+                density = 3;
+
+          for (var i = 0; i < imageData.height; i += density) {
+            for (var j = 0; j < imageData.width; j += density) {
+
+              var color = imageDatan[((j * ( imageData.width * 4)) + (i * 4)) - 1];
+
+              if (color == 255) {
+                particles.push(new Ball());
+                particles[particles.length - 1].setP(i, j);
+
+                // particles[j].drow();
+              }
+
+
+            }
+          }
+
+         }
+
+var countUp = 0,
+    angle = 0,
+    x = 10,
+    y = 10;
+
+text();
+viewText();
+updata();
+
+function updata(){
+
+    clear();
+
+    for (var i = 0; i < particles.length; i++) {
+        var p = particles[i];
+        ctx.globalCompositeOperation = "lighter";
+            // p.shadowColor = '#000000';
+            // p.shadowOffsetX = 0;
+            // p.shadowOffsetY = 10;
+            // p.shadowBlur = 3;
+
+     if(countUp == 20 ){
+        countUp = 1;
+     }
+
+     if(countUp == 0 ){
+        p.x += rand(10,8);
+        p.y += rand(80,5);
+
+        
+     
+     }
+
+        // if( countUp > 1 && countUp < 10 ){
+
+        // p.x += this.vx/100;
+        // p.y += this.vy/100;
+
+        // } else {
+
+        // p.x -= this.vx;
+        // p.y -= this.vy;
+
+        // }
+
+
+
+        p.drow();
+    }
+
+        countUp ++;
+    requestAnimFrame(updata);
+
+}
+console.log()
+
+    })();
+    </script>
+</body>
+
+</html>
