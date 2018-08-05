@@ -36,16 +36,17 @@
         w = canvas.width = window.innerWidth,
         h = canvas.height = window.innerHeight,
         maxNum = 100,
+        changeCount = 0,
+        textCount = 0,
         sankBox = [],
-        inText = 'GOOOO';
+        inText = ['挑戦','盲目','BBBBB','++{LL'],
+        a = 0;
 
-
-
-    function textView() {
+    function textView(textNum) {
 
         ctx.fileStyle = '#000000';
         ctx.font = '200px serif';
-        ctx.fillText(inText, 50, h / 2);
+        ctx.fillText(inText[textNum], 50, h / 2);
 
     }
 
@@ -54,6 +55,7 @@
 
         this.countUp = 0;
         var angle = 0;
+        this.a = 0;
 
         this.x = 0,
         this.y = 0;
@@ -98,15 +100,15 @@
 
         update: function() {
 
+               a += 1 * Math.PI / 180;
 
-            var d = Math.round(Math.random() * 360),
-                a = 180 - (d + 90),
-                ex = 0.1 * Math.cos(a) ,
-                ey = 0.1 * Math.sin(a) ;
+               var ex = Math.cos(a) * 30 ,
+                ey = Math.sin(a) * 30 ;
 
-            this.x += ex;
-            this.y += ey;
-            this.vy += 0.4;
+
+            this.x = ex;
+            this.y = ey;
+            // this.vy += 0.4;
             // this.setoy += 1;
 
             // this.setoy = 1;
@@ -114,11 +116,11 @@
 
             // console.log(this.x);
 
-            if (this.countUp > 40) {
+            if (this.countUp > 200) {
                 this.countUp = 1;
             }
 
-            if (this.countUp < 20) {
+            if (this.countUp < 100) {
 
                 this.setox += this.x;
                 this.setxx += this.x;
@@ -137,7 +139,6 @@
             }
 
 
-
             this.countUp ++;
 
         },
@@ -154,12 +155,8 @@
     function pText() {
 
         var imageData = ctx.getImageData(0, 0, window.innerWidth, window.innerWidth);
-
         var imageColorData = imageData.data;
-
         ctx.clearRect(0, 0, w, h);
-
-
 
         for (var yb = 0; yb < imageData.height; yb += 5) {
             for (var xb = 0; xb < imageData.width; xb += 5) {
@@ -173,11 +170,10 @@
             }
         }
 
-
     }
 
 
-    textView();
+    textView(0);
     pText();
 
 
@@ -203,11 +199,45 @@
     }, 1000);
 
 
-    function moveSank() {
+function moveSank() {
 
         ctx.fillStyle = '#ffffff';
         ctx.fillRect(0, 0, w, h);
         ctx.fillStyle = '#000000';
+
+if( changeCount == 200 ){
+    ctx.clearRect(0, 0, w, h);
+
+    textView(textCount);
+    changeCount = 1;
+
+    sankBox = [];
+
+    let imageData = ctx.getImageData(0, 0, window.innerWidth, window.innerWidth);
+
+    let imageColorData = imageData.data;
+
+        for (let yb = 0; yb < imageData.height; yb += 5) {
+            for (let xb = 0; xb < imageData.width; xb += 5) {
+
+                let alpha = imageColorData[((yb * (imageData.width * 4)) + (xb * 4)) - 1];
+
+                if (alpha == 255) {
+                    sankBox.push(new sank(xb, yb));
+                }
+
+            }
+        }
+
+        if(textCount == 3){
+            textCount = 0;
+        }
+
+        textCount ++;
+    }
+
+    changeCount ++;
+
         for (var i in sankBox) {
             sankBox[i].drow();
         }

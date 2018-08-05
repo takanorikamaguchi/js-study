@@ -37,15 +37,16 @@
         h = canvas.height = window.innerHeight,
         maxNum = 100,
         sankBox = [],
-        inText = 'GOOOO';
+        inText = ['GOOOO','TUUUU','POSRT??'],
+        textCount = 0;
 
 
 
-    function textView() {
+    function textView(num) {
 
         ctx.fileStyle = '#000000';
         ctx.font = '200px serif';
-        ctx.fillText(inText, 50, h / 2);
+        ctx.fillText(inText[num], 50, h / 2);
 
     }
 
@@ -54,9 +55,11 @@
 
         this.countUp = 0;
         var angle = 0;
+        this.a = 0;
 
         this.x = 0,
         this.y = 0;
+        this.placement = [];
         this.setox = this.ox = x;
         this.setoy = this.oy = y;
         this.setxx = this.xx = x + 10;
@@ -98,23 +101,24 @@
 
         update: function() {
 
+            if(this.countUp == 40){
+                this.getValue();
+            }
 
-            var d = Math.round(Math.random() * 360),
-                a = 180 - (d + 90),
-                ex = 0.1 * Math.cos(a) ,
-                ey = 0.1 * Math.sin(a) ;
-
+            var d = Math.round(Math.random() * 360);
+            this.a += 1 * Math.PI / 180;
+            var ex = 0.1 * Math.cos(this.a) ,
+                ey = 0.1 * Math.sin(this.a) ;
             this.x += ex;
             this.y += ey;
             this.vy += 0.4;
-            // this.setoy += 1;
 
+            // this.setoy += 1;
             // this.setoy = 1;
             // this.setyy += 1;
-
             // console.log(this.x);
 
-            if (this.countUp > 40) {
+            if (this.countUp >= 40) {
                 this.countUp = 1;
             }
 
@@ -136,17 +140,15 @@
 
             }
 
-
-
             this.countUp ++;
+
 
         },
 
         random: function(max, min) {
             return Math.random() * (max - min) + min;
         }
-
-
+        
     }
 
     var imageColorData = [];
@@ -176,10 +178,36 @@
 
     }
 
+sank.prototype.getValue = function(){
 
-    textView();
+        ctx.fileStyle = '#000000';
+        ctx.font = '200px serif';
+        ctx.fillText(inText[2], 50, h / 2);
+
+        var idata = ctx.getImageData(0,0,w,h);
+        var buffer32 = new Uint32Array(idata.data.buffer);
+
+        for (let n = 0; n < h; n += 4) {
+            for (let d = 0; d < w; w +=4 ) {
+
+                if( buffer32[ n * w + d ] ){
+                    this.placement.push(new sank(d, n));
+                }
+                
+            }
+        }
+
+    ctx.clearRect(0, 0, w, h);
+
+}
+
+
+    textView(1);
     pText();
 
+var word = new sank(w/2,h/2);
+word.getValue();
+word.placement = [];
 
     // for (var v = 0; v < maxNum; v+=3) {
 
@@ -199,6 +227,7 @@
         ctx.lineTo(40, 50);
         ctx.lineTo(30, 50);
         ctx.fill();
+        ctx.closePath;
 
     }, 1000);
 
@@ -207,9 +236,25 @@
 
         ctx.fillStyle = '#ffffff';
         ctx.fillRect(0, 0, w, h);
-        ctx.fillStyle = '#000000';
-        for (var i in sankBox) {
-            sankBox[i].drow();
+         ctx.fillStyle = '#cccccc';
+
+
+        if(textCount == 200){
+
+            sankBox.length = 0;
+            textView(0);
+            // sank.getValue();
+            pText();
+            textCount = 0;
+
+        }
+
+        textCount ++;
+
+        for (let ll = 0; ll < word.placement.length; ll++) {
+            
+            word.placement[ll].drow();
+            
         }
 
         window.requestAnimationFrame(moveSank);

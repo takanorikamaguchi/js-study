@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>js | canvas Arts</title>
+    <style>
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: #ccc;
+    }
+
+    .canvas {
+        background-color: #333;
+    }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>
+          <span>js | canvas practice</span>
+        </h1>
+    </header>
+    <canvas id="c" class="canvas">
+        Canvas not suported!
+    </canvas>
+    <script type="text/javascript">
+ window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame;
+
+    var canvas = document.getElementById('c'),
+        ctx = canvas.getContext('2d'),
+        w = canvas.width = window.innerWidth,
+        h = canvas.height = window.innerHeight,
+        maxNum = 100,
+        changeCount = 0,
+        textCount = 0,
+        sankBox = [],
+        drowBox = [],
+        inText = ['挑戦','盲目','BBBBB','++{LL'],
+        a = 0;
+
+    function textView(textNum) {
+
+        ctx.fileStyle = '#000000';
+        ctx.font = '200px serif';
+        ctx.fillText(inText[textNum], 50, h / 2);
+
+    }
+
+
+var itercount = 0;
+var itertot = 4000;
+
+    function sank(x, y) {
+
+        this.countUp = 0;
+        var angle = 0;
+        this.a = 0;
+
+        this.x = 0,
+        this.y = 0;
+
+        this.dx = x;
+        this.dy = y;
+
+var startx = (Math.random() * canvas.width);
+var starty = (Math.random() * canvas.height);
+
+        this.velx = (x - startx) / itertot;
+        this.vely = (y - starty) / itertot;
+
+        this.color = "#ffffff";
+
+        this.xxx = x;
+        this.yyy = y,
+        this.xx2 = startx;
+        this.yy2 = starty;
+        this.r = true;
+        this.v = { x: this.velx , y: this.vely };
+
+        ctx.beginPath();
+        ctx.arc(this.xx2,this.yy2 ,4,0 , Math.PI*2, true);
+        ctx.closePath();
+        ctx.fill();
+
+    }
+
+
+    sank.prototype = {
+
+        constructor: sank,
+
+        drow: function() {
+
+
+            if( itercount > 400000 ){
+
+                this.r = false;
+
+                itercount = 0;
+                console.log( this.r );
+
+            }
+
+            if( this.r = true ){
+
+                this.xx2 += this.v.x;
+                this.yy2 += this.v.y;
+
+             }
+                // console.log(itercount);
+
+        ctx.beginPath();
+        ctx.arc(this.xx2,this.yy2 ,4,0 , Math.PI*2, true);
+        ctx.closePath();
+        ctx.fill();
+
+
+        },
+
+
+        update: function() {
+
+                // console.log(this.v.y);
+
+            // if(velx < 0 ){
+            // this.xx2 = this.xxx;
+            // this.yy2 = this.yyy;
+            // }
+
+             if( itercount > 3000 ) {
+                // console.log(this.r);
+
+                this.v = 
+                {
+                    x : (Math.random()*6) * 2 - 6,
+                    y : (Math.random()*6) * 2 - 6
+                };
+
+
+
+             }
+
+
+            this.countUp ++;
+
+        },
+
+        random: function(max, min) {
+            return Math.random() * (max - min) + min;
+        }
+
+
+    }
+
+    var imageColorData = [];
+
+    function pText() {
+
+        var imageData = ctx.getImageData(0, 0, window.innerWidth, window.innerWidth);
+        var imageColorData = imageData.data;
+        ctx.clearRect(0, 0, w, h);
+
+        for (var yb = 0; yb < imageData.height; yb += 10) {
+            for (var xb = 0; xb < imageData.width; xb += 10) {
+
+                var alpha = imageColorData[((yb * (imageData.width * 4)) + (xb * 4)) - 1];
+
+                if (alpha == 255) {
+                    sankBox.push(new sank(xb, yb));
+                }
+
+            }
+        }
+
+    }
+
+
+    textView(0);
+    pText();
+
+
+
+    setTimeout(function() {
+        moveSank();
+
+    }, 1000);
+
+
+function moveSank() {
+
+       itercount ++;
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, w, h);
+        ctx.fillStyle = '#000000';
+
+        ctx.clearRect(0, 0, w, h);
+
+        for (var i in sankBox) {
+            sankBox[i].drow();
+        }
+
+        window.requestAnimationFrame(moveSank);
+
+    }
+    </script>
+</body>
+
+</html>

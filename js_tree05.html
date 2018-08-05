@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>js | Tree</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/89/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stats.js/r16/Stats.min.js"></script>
+    <style>
+        .lsection {
+            padding: 5rem;
+        }
+    </style>
+<script>
+
+window.addEventListener('load', init);
+
+var meshTemp = [];
+
+function init(){
+
+    let width = 800;
+    let height = 540;
+    let cel_n = 20;
+
+    const renderer = new THREE.WebGLRenderer( {
+        canvas: document.querySelector('#stage')
+    });
+
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(width,height);
+
+    let sence = new THREE.Scene();
+    let camera = new THREE.PerspectiveCamera(45, width/ height);
+
+    camera.position.set(0,0, 400);
+
+    let geometry = new THREE.Geometry();
+
+    for (let b = 0; b < cel_n; b++) {
+        for (let n = 0; n < cel_n; n++) {
+            for (let v = 0; v < cel_n; v++) {
+
+             this.Num = Math.random() * 30;
+
+            meshTemp[v] = new THREE.Mesh(
+                new THREE.BoxGeometry(5,5,5)
+            );
+
+            meshTemp[v].position.set(
+                10 * (b * this.Num - cel_n /2 ),
+                10 * (n * this.Num - cel_n /2 ),
+                10 * (v * this.Num - cel_n /2 ),
+            );
+
+                geometry.mergeMesh(meshTemp[v]);
+
+            }        
+        }
+    }
+
+    let material = new THREE.MeshNormalMaterial();
+
+    let mesh = new THREE.Mesh(geometry, material);
+    sence.add(mesh);
+
+    let stats = new Stats();
+    stats.domElement.style.position = 'absolute';
+    stats.domElement.style.top = '10px';
+    document.body.appendChild(stats.domElement);
+
+    tick();
+
+    var countNum = 0;
+
+    function tick() {
+
+        mesh.rotation.x +=  Math.PI / 180;
+
+        var n = (Math.PI / 180);
+
+
+        let geometry = new THREE.Geometry();            
+
+//         if(countNum < 300){
+//             mesh.rotation.x += 1;
+//         }else{
+//             mesh.rotation.x -= 1;
+//         }
+//         if(countNum == 600){
+//             countNum = 0;
+//         }
+
+// countNum ++;
+
+        mesh.rotation.y +=  Math.PI / 180;
+
+        renderer.render(sence, camera);
+
+        document.getElementById('info').innerHTML = JSON.stringify(renderer.info.render, '', '   ');
+
+        stats.update();
+
+        requestAnimationFrame(tick);
+
+    }
+
+}
+
+</script>
+</head>
+
+<body>
+    <header>
+        <h1>
+            <span>js | Tree</span>
+        </h1>
+    </header>
+
+</script>
+    <section class="lsection">
+        <canvas id="stage"></canvas>
+    </section>
+    <pre id="info"></pre>
+</body>
+
+</html>

@@ -209,12 +209,12 @@ function updata(){
 
 
         ctx.globalCompositeOperation = "lighter";
+
             // p.shadowColor = '#000000';
             // p.shadowOffsetX = 0;
             // p.shadowOffsetY = 10;
             // p.shadowBlur = 3;
 
-        console.log();
 
          if(countUp == 20 ){
             countUp = 0;
@@ -234,7 +234,7 @@ function updata(){
         p.x += p.s * Math.sin(d) / Math.sin(p.s)/10;
         p.y += p.s * Math.sin(a) / Math.sin(p.s)/10;
          // p.r += 2;
-        }else if( countUp < 20 ){
+        } else if( countUp < 20 ){
         // p.r -= 2;
         p.x -= p.s * Math.sin(d) / Math.sin(p.s)/100;
         p.y -= p.s * Math.sin(a) / Math.sin(p.s)/100;
@@ -242,6 +242,7 @@ function updata(){
         }
 
         p.drow();
+
     }
 
         countUp ++;

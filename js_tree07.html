@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>js | Tree</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/89/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stats.js/r16/Stats.min.js"></script>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        .lsection {
+            padding: 0;
+        }
+    </style>
+<script>
+
+window.addEventListener('load', function(){
+
+var meshTempNum = [];
+var listBox = [];
+var a = 0;
+var w,h;
+
+for (let d = 0; d < 200; d++) {
+    a += 1 * Math.PI / 180;
+
+    var ec = Math.cos(a) *30* Math.random();
+    var es = Math.sin(a) *30* Math.random();
+    meshTempNum.push(es);
+}
+
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    let cel_n = 200;
+
+    const renderer = new THREE.WebGLRenderer( {
+        canvas: document.querySelector('#stage')
+    });
+
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(width,height);
+
+    let sence = new THREE.Scene();
+    let camera = new THREE.PerspectiveCamera(45, width / height);
+
+    camera.position.set(0,0, +1000);
+
+    let geometry = new THREE.BoxBufferGeometry(50,50,50);
+
+    for (let b = 0; b < cel_n; b++) {
+
+        let material = new THREE.MeshStandardMaterial({color : 0xffffff});
+
+        const mesh = new THREE.Mesh(geometry, material);
+
+            mesh.position.x = (Math.random() - 0.5) * 800 * meshTempNum[b];
+            mesh.position.y = (Math.random() - 0.5) * 800 * meshTempNum[b];
+            mesh.position.z = (Math.random() - 0.5) * 800 * meshTempNum[b];
+            mesh.rotation.x = Math.random()* 3 * Math.PI;
+            mesh.rotation.y = Math.random()* 3 * Math.PI;
+            mesh.rotation.z = Math.random()* 3 * Math.PI;
+
+        sence.add(mesh);
+        listBox.push(mesh);
+
+    }
+
+    let directionalLight = new THREE.DirectionalLight(0xffffff);
+    directionalLight.position.set(1,1,1);
+    sence.add(directionalLight);
+
+    let ambientLight = new THREE.AmbientLight(0x333333);
+    sence.add(ambientLight);
+    let raycaster = new THREE.Raycaster();
+
+
+    tick();
+
+    function tick() {
+
+        let canvas = document.getElementById('stage');
+        w = window.innerWidth;
+        h = window.innerHeight;
+        // raycaster.setFormCamera(camera);
+        var countNum = 0;
+        var responseY = 1;
+        var responseX = 1;
+
+
+        listBox.map(mesh => {
+
+            if( mesh.position.y >  32000 || mesh.position.y < -32000 ){
+                responseY = -1;
+            }else{
+                responseY = 1;
+            }
+            if( mesh.position.x > 32000 || mesh.position.x < -32000 ){
+                responseX = -1;
+            }else{
+                responseX = 1;
+            }
+
+                mesh.position.y +=  1 * Math.floor(meshTempNum[countNum] * responseY) ;
+                mesh.position.x +=  1 * Math.floor(meshTempNum[countNum] * responseX) ;
+
+                countNum ++;
+
+        });
+
+        if( countNum == 200 ){
+            countNum = 0;
+        }
+    
+        renderer.render(sence, camera);
+        requestAnimationFrame(tick);
+
+    }
+
+
+});
+
+</script>
+</head>
+
+<body>
+    <header>
+        <h1>
+            <span>js | Tree</span>
+        </h1>
+    </header>
+
+</script>
+    <section class="lsection">
+        <canvas id="stage"></canvas>
+    </section>
+    <pre id="info"></pre>
+</body>
+
+</html>

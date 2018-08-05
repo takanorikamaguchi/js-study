@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>js | Tree</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/89/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stats.js/r16/Stats.min.js"></script>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        .lsection {
+            padding: 0;
+        }
+        #stage {
+            background-color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>
+            <span>js | Tree</span>
+        </h1>
+    </header>
+
+    <section class="lsection">
+        <canvas id="stage"></canvas>
+    </section>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.1/TweenMax.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.1/TimelineMax.min.js"></script>
+    <script src="see05.js"></script> -->
+    <script>
+        var w = window.innerWidth;
+        var h = window.innerHeight;
+        var camera,renderer,that;
+
+        var movingBox = function(){
+            this.scene = new THREE.Scene();
+            that = this;
+        }
+        
+        movingBox.prototype.init = function(){
+            this.cameraSet();
+            this.crearteRender();
+            this.createBoxs();
+            this.animationLinght();
+            this.render();
+        };
+        
+        movingBox.prototype.cameraSet = function(){
+
+            this.camera = new THREE.OrthographicCamera(window.innerWidth / - 2, window.innerWidth / 2, window.innerHeight / 2, window.innerHeight / - 2, -1000, 1000  );
+
+            this.camera.position.x = 100;
+            this.camera.position.y = 100;
+            this.camera.position.z = 100;
+
+            this.camera.lookAt(this.scene.position);
+
+        };
+        
+        movingBox.prototype.crearteRender = function(){
+        
+            this.renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('stage') });
+            this.renderer.setSize( w, h );
+            this.renderer.setClearColor( 0xf2f2f2);
+
+            // renderer.shadowMapEnabled = true;
+            // renderer.shadowMapType = THREE.PCFSoftShadowMap;
+            // renderer.shadowMapSoft = true;
+        
+        };
+
+        movingBox.prototype.createBoxs = function(){
+
+            var material = new THREE.MeshStandardMaterial({
+                color: 0xCCCCCC,
+                map: new THREE.TextureLoader().load('img/img-mo-03.png'),
+                shading: THREE.DoubleSide,
+            });
+
+            this.madeBoxGroup = new THREE.Object3D();
+
+            var geometry01 = new THREE.SphereGeometry(50,50,50);
+            // var geometry02 = new THREE.PlaneGeometry(50,50);
+            // var geometry03 = new THREE.BoxGeometry(50,50,50);
+            var geometry03 = new THREE.SphereGeometry(50,50,50);
+
+
+            // this.madeBox01 = new THREE.Mesh(geometry01,material);
+            // this.madeBox03 = new THREE.Mesh(geometry03,material);
+            // this.madeBox04 = new THREE.Mesh(geometry03,material);
+            // this.madeBox05 = new THREE.Mesh(geometry03,material);
+
+            this.secondBox = new THREE.Object3D();
+
+            this.secondBox01 = new THREE.Mesh(geometry03, material);
+            this.secondBox02 = new THREE.Mesh(geometry03, material);
+            this.secondBox03 = new THREE.Mesh(geometry03, material);
+            this.secondBox04 = new THREE.Mesh(geometry03, material);
+            this.secondBox05 = new THREE.Mesh(geometry03, material);
+            this.secondBox06 = new THREE.Mesh(geometry03, material);
+            this.secondBox07 = new THREE.Mesh(geometry03, material);
+            this.secondBox08 = new THREE.Mesh(geometry03, material);
+            this.secondBox09 = new THREE.Mesh(geometry03, material);
+
+            // this.secondBox01.position.x = 400 * Math.sin(1/3 *Math.PI * 2);
+            // this.secondBox02.position.x = 400 * Math.sin(2/3 *Math.PI * 2);
+            // this.secondBox03.position.x = 400 * Math.sin(3/3 *Math.PI * 2);
+
+            // this.secondBox01.position.y = 400 * Math.cos(1/3 *Math.PI * 2);
+            // this.secondBox02.position.y = 400 * Math.cos(2/3 *Math.PI * 2);
+            // this.secondBox03.position.y = 400 * Math.cos(3/3 *Math.PI * 2);
+
+            this.secondBox.add(this.secondBox01);
+            this.secondBox.add(this.secondBox02);
+            this.secondBox.add(this.secondBox03);
+            this.secondBox.add(this.secondBox04);
+            this.secondBox.add(this.secondBox05);
+            this.secondBox.add(this.secondBox06);
+            this.secondBox.add(this.secondBox07);
+            this.secondBox.add(this.secondBox08);
+            this.secondBox.add(this.secondBox09);
+
+            this.madeBoxGroup.add(this.secondBox);
+
+            this.scene.add(this.madeBoxGroup);
+
+            
+        };
+
+        movingBox.prototype.animationLinght = function(){
+
+            this.directionaLight = new THREE.DirectionalLight(0xcccccc);
+            this.directionaLight.position.set(300,10,500);
+            this.scene.add(this.directionaLight);
+
+            this.ambientLight = new THREE.AmbientLight(0xff0000);
+            this.scene.add(this.ambientLight);
+
+
+        };
+
+        movingBox.prototype.animationBoxs = function(){};
+
+var couuntAnimatoin = 0;
+
+        movingBox.prototype.render = function(){
+            requestAnimationFrame(this.render.bind(this));
+            
+            if( couuntAnimatoin < 50  ){
+                this.secondBox01.rotation.y +=0.1
+                this.secondBox02.rotation.y +=0.1
+                this.secondBox03.rotation.y +=0.1
+                this.secondBox04.rotation.y +=0.1
+                this.secondBox05.rotation.y +=0.1
+                this.secondBox06.rotation.y +=0.1
+                this.secondBox07.rotation.y +=0.1
+                this.secondBox08.rotation.y +=0.1
+                this.secondBox09.rotation.y +=0.1
+            }else if( couuntAnimatoin < 100 ){
+
+                this.secondBox02.position.x += 3;
+                this.secondBox03.position.x += 3;
+                this.secondBox04.position.x += 3;
+                this.secondBox05.position.x -= 3;
+                this.secondBox06.position.x -= 3;
+                this.secondBox07.position.x -= 3;
+
+            }else if( couuntAnimatoin < 150 ){
+
+                this.secondBox03.position.y += 3;
+                this.secondBox04.position.y += 3;
+
+                this.secondBox06.position.y += 3;
+                this.secondBox07.position.y += 3;
+
+                this.secondBox08.position.y += 3;
+                this.secondBox09.position.y += 3;
+
+            }else if( couuntAnimatoin < 200 ){
+
+                this.secondBox04.position.y += 3;
+                this.secondBox07.position.y += 3;
+                this.secondBox09.position.y += 3;
+
+            }else if( couuntAnimatoin < 300 ){
+                
+                this.secondBox01.rotation.y += 0.03;
+                this.secondBox02.rotation.y += 0.03;
+                this.secondBox03.rotation.y += 0.03;
+                this.secondBox04.rotation.y += 0.03;
+                this.secondBox05.rotation.y += 0.03;
+                this.secondBox06.rotation.y += 0.03;
+                this.secondBox07.rotation.y += 0.03;
+                this.secondBox08.rotation.y += 0.03;
+                this.secondBox09.rotation.y += 0.03;
+                
+            }else if( couuntAnimatoin < 350 ){
+
+                this.secondBox04.position.y -= 3;
+                this.secondBox07.position.y -= 3;
+                this.secondBox09.position.y -= 3;
+
+                this.secondBox01.position.y += 3;
+                this.secondBox02.position.y += 3;
+                this.secondBox05.position.y += 3;
+
+
+            }else if( couuntAnimatoin < 400 ){
+
+                this.secondBox02.position.x -= 3;
+                this.secondBox03.position.x -= 3;
+                this.secondBox04.position.x -= 3;
+                this.secondBox05.position.x += 3;
+                this.secondBox06.position.x += 3;
+                this.secondBox07.position.x += 3;
+
+            }else{
+                this.secondBox01.position.y -= 3;
+                this.secondBox02.position.y -= 3;
+                this.secondBox03.position.y -= 3;
+                this.secondBox04.position.y -= 3;
+                this.secondBox05.position.y -= 3;
+                this.secondBox06.position.y -= 3;
+                this.secondBox07.position.y -= 3;
+                this.secondBox08.position.y -= 3;
+                this.secondBox09.position.y -= 3;
+            }
+
+            if( couuntAnimatoin == 450  ){
+
+            couuntAnimatoin = 0;
+
+            }
+
+            couuntAnimatoin ++;
+
+            this.renderer.render(this.scene, this.camera);
+        };
+        
+        window.addEventListener('load', function(){
+            var movingBoxes = new movingBox();
+            movingBoxes.init();
+        });
+        
+    </script>
+</body>
+
+</html>

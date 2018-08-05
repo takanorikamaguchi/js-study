@@ -54,6 +54,7 @@
 
         this.countUp = 0;
         var angle = 0;
+        this.a = 0;
 
         this.x = 0,
         this.y = 0;
@@ -99,10 +100,10 @@
         update: function() {
 
 
-            var d = Math.round(Math.random() * 360),
-                a = 180 - (d + 90),
-                ex = 0.1 * Math.cos(a) ,
-                ey = 0.1 * Math.sin(a) ;
+            var d = Math.round(Math.random() * 360);
+            this.a += 1 * Math.PI / 180;
+            var ex = 0.1 * Math.cos(this.a) ,
+                ey = 0.1 * Math.sin(this.a) ;
 
             this.x += ex;
             this.y += ey;
@@ -135,7 +136,6 @@
                 this.setyy += -this.y;
 
             }
-
 
 
             this.countUp ++;

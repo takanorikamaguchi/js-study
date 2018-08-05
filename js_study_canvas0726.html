@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>js | canvas Arts</title>
+    <style>
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: #ccc;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    .canvas {
+        background-color: #ff0;
+    }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>
+          <span>js | canvas practice</span>
+        </h1>
+    </header>
+    <canvas id="c" class="canvas">
+        Canvas not suported!
+    </canvas>
+    <script type="text/javascript">
+    window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame;
+
+    var count = 0;
+    var textCount = 0;
+
+    var itercount = 0;
+    var itertot = 40;
+
+
+    function sank() {
+
+        var canvas = document.getElementById('c'),
+            ctx = canvas.getContext('2d'),
+            w = canvas.width = window.innerWidth,
+            h = canvas.height = window.innerHeight,
+            maxNum = 100,
+            changeCount = 0,
+            textCount = 0,
+            imageColorData = [],
+            sankBox = [],
+            drowBox = [],
+            inText = ['挑戦', '盲目', 'BBBBB', '++{LL'],
+            a = 0;
+
+        this.init = function(Num) {
+
+            veiwText(Num);
+
+        }
+
+        var veiwText = function(textNum) {
+
+            cr();
+            ctx.fileStyle = '#000000';
+            ctx.font = '300px serif';
+            ctx.fillText(inText[textNum], 50, h / 2);
+            getPos();
+
+        }
+
+        var dball = function(x, y) {
+
+            var startx = (Math.random() * canvas.width);
+            var starty = (Math.random() * canvas.height);
+
+            var velx = (x - startx) / itertot;
+            var vely = (y - starty) / itertot;
+
+
+            this.color = "#ffffff";
+
+            sankBox.push({
+
+                xxx: x,
+                yyy: y,
+                xx2: startx,
+                yy2: starty,
+                r: true,
+                v: { x: velx, y: vely }
+
+            });
+
+
+        }
+
+
+        var getPos = function() {
+
+            var imageData = ctx.getImageData(0, 0, window.innerWidth, window.innerWidth);
+            var imageColorData = imageData.data;
+
+            ctx.clearRect(0, 0, w, h);
+
+            for (var yb = 0; yb < imageData.height; yb += 3) {
+                for (var xb = 0; xb < imageData.width; xb += 3) {
+
+                    var alpha = imageColorData[((yb * (imageData.width * 4)) + (xb * 4)) - 1];
+
+                    if (alpha == 255) {
+                        dball(xb, yb);
+
+                    }
+
+                }
+            }
+
+            setInterval(function() {
+
+                if( count > 200 ){
+
+                   textCount ++;
+
+                   sankBox.length = 0;
+
+                    veiwText(textCount);
+                    getPos();
+
+                    count = 0;
+
+                itercount = 0;
+
+                }
+
+
+                if(textCount == 3 ){
+                   textCount = 0;
+                }
+
+                upload();
+
+                count ++;
+
+
+            }, 40);
+
+        }
+
+
+        var cr = function() {
+            ctx.fileStyle = '#333';
+            ctx.clearRect(0, 0, w, h);
+        }
+
+        var upload = function() {
+
+            itercount++;
+            cr();
+
+            // console.log(sankBox.length);
+            for (var i = 0; i < sankBox.length; i++) {
+
+                if (sankBox[i].r == true) {
+                    sankBox[i].xx2 += sankBox[i].v.x;
+                    sankBox[i].yy2 += sankBox[i].v.y;
+                }
+
+                if (itercount == itertot) {
+
+                    sankBox[i].v = {
+                        x: (Math.random() * 6) * 2 - 6,
+                        y: (Math.random() * 6) * 2 - 6,
+                    };
+                    sankBox[i].r = false;
+
+                }
+
+                ctx.beginPath();
+                ctx.arc(sankBox[i].xx2, sankBox[i].yy2, 2, 0, Math.PI * 2, true);
+                ctx.closePath();
+                ctx.fill();
+
+            }
+
+        }
+
+
+    }
+
+    var Sank = new sank();
+
+        Sank.init(count);
+
+
+    </script>
+</body>
+
+</html>
