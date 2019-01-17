@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ani</title>
+</head>
+<style>
+
+section {
+  position: relative;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  transition: all 2s;
+  background-color: #3747bb;
+}
+
+.wrapper {
+  position: relative;
+}
+
+.wrapper::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #ff0;
+  transition: height 1s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  animation: mvload 2s ease-in forwards;
+}
+
+.wrapper.mv02::after {
+  height: 0;
+}
+
+.load {
+  display: block;
+  width: 200px;
+  height: 200px;
+  background-color: #ccc;
+  color: #fff;
+  text-align: center;
+  line-height: 200px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.l-section {
+  width: 100vw;
+  height: 100vh;
+  transition: opacity 1s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  opacity: 0;
+}
+
+.fadeBody {
+  opacity: 1;
+}
+
+.js-load {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.js-load_Inner {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 300px;
+  height: 300px;
+  padding: 5px;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.js-load_Inner::before {
+  content: 'N';
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  font-size: 250px;
+  color: #3747bb;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.js-load_Inner span {
+  display: inline-block;
+  position: relative;
+  z-index: 2;
+  width: 31.33%;
+  height: 31.33%;
+  margin: 1%;
+  background-color: #eee;
+}
+
+.mv01:nth-child(1) {
+  animation: mvload01 1s ease-in-out 0.1s forwards;
+}
+
+.mv01:nth-child(2) {
+  animation: mvload01 1s ease-in-out 0.2s forwards;
+}
+
+.mv01:nth-child(3) {
+  animation: mvload01 1s ease-in-out 0.3s forwards;
+}
+
+.mv01:nth-child(4) {
+  animation: mvload01 1s ease-in-out 0.4s forwards;
+}
+
+.mv01:nth-child(5) {
+  animation: mvload01 1s ease-in-out 0.5s forwards;
+}
+
+.mv01:nth-child(6) {
+  animation: mvload01 1s ease-in-out 0.6s forwards;
+}
+
+.mv01:nth-child(7) {
+  animation: mvload01 1s ease-in-out 0.7s forwards;
+}
+
+.mv01:nth-child(8) {
+  animation: mvload01 1s ease-in-out 0.8s forwards;
+}
+
+.mv01:nth-child(9) {
+  animation: mvload01 1s ease-in-out 0.9s forwards;
+}
+
+
+@keyframes mvload01 {
+  0%{ transform: rotate(0deg);}
+  50%{ transform: rotate(180deg) scale(1); }
+  100%{ transform: rotate(0deg) scale(0); }
+}
+
+/* @keyframes mvload02 {
+  0%{ transform: rotate(0deg);}
+  50%{ transform: rotate(180deg); }
+  100%{ transform: rotate(0deg) translate(-400px, 0); }
+} */
+
+.nnn {
+  font-size: 3rem;
+}
+
+.js-load {
+  position: absolute;
+}
+
+</style>
+
+<body>
+  <div class="wrapper">
+    <section class="l-section">
+        <h1 class="nnn">js</h1>
+    </section>
+    <div class="js-load">
+      <div class="js-load_Inner">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+
+(function($){
+'use strict'
+
+
+  $(window).on('load', function(){
+
+    if( sessionStorage.getItem('key') === null ){
+      loadMv01().then(function(){
+      loadMv02();
+      sessionStorage.setItem('key', 'value');
+    }).done(function(){
+      loadMv03();
+    });
+    }else{
+      $('.js-load_Inner span').fadeOut();
+      loadMv02().then(loadMv03()).done();
+    }
+    
+  });
+
+
+  function loadMv01(){
+    var df = new $.Deferred();
+    setTimeout(function(){
+      $('.js-load_Inner span').addClass('mv01');
+      df.resolve();
+    },10,);
+    return df.promise();
+  }
+
+  function loadMv02(){
+    var df = new $.Deferred();
+    setTimeout(function(){
+      $('.wrapper').addClass('mv02');
+      df.resolve();
+    },2000,);
+    return df.promise();
+  }
+
+  function loadMv03(){
+    var df = new $.Deferred();
+    setTimeout(function(){
+      $('.l-section').addClass('fadeBody');
+      $('.js-load').fadeOut();
+      df.resolve();
+    },3000,);
+    return df.promise();
+  }
+
+function loadPage(){
+
+$('[href-data]').on('click', function(e){
+
+e.preventDefault();
+
+var pageUrl = $(this).attr('href-data');
+
+if(url == '') {
+  return ;
+}
+
+$('body').addClass('loadPage');
+
+setTimeout(function(){
+  window.location = url;
+},5000);
+
+
+});
+
+}
+
+})(jQuery);
+
+</script>
+</body>
+
+</html>

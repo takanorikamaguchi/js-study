@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Vue.js</title>
+  <style type="text/css" media="screen">
+    .ookk {
+      text-decoration: line-through;
+      color: red;
+    }
+  </style>
+  <style type="text/css">
+    .done {
+      text-decoration: line-through;
+      color: red;
+    }
+    .section01 {background-color: #ccc;}
+    .section02 {background-color: #ffc;}
+    .section03 {background-color: #00c;}
+  </style>
+</head>
+<body>
+
+<header id="header" v-cloak>
+     <components-header></components-header>
+     <ul>
+     <components-headersecond v-for="item in result" v-bind:headeritem='item'></components-headersecond>
+     </ul>
+     <p v-else-if="error">HEADERの通信エラーが発生しました。しばらく時間をおいてから再度お試しください。</p>
+      <div>
+         <div class="l" @click="gg">ZZZZZZZZ</div>
+          <div v-if="!error">
+            <ul>
+              <li v-for="item in result">
+                <p>{{ item.text }}</p>
+                <p><img src="./assets/img/img-section-0{{ item.id }}.jpg" alt="画像"></p>
+              </li>
+            <ul>
+          </div>
+          <p v-else-if="error">通信エラーが発生しました。しばらく時間をおいてから再度お試しください。</p>
+      </div>
+</header>
+
+<section id="app" class="container">
+  <ul class="list-unstyled">
+    <li v-for="todo in todos" v-bind:class="[todo.classnum]">
+         <h2>{{todo.tit}}</h2>
+          <p>{{todo.text}}</p>
+    </li>
+  </ul>
+</section>
+
+<footer id="footer" class="container">
+  <div v-if="!error">
+    <ul class="list-unstyled">
+      <li v-for="todo in result" v-bind:class="[todo.classnum]">
+          <h2>{{todo.tit}}</h2>
+            <p>{{todo.text}}</p>
+      </li>
+    </ul>
+  </div>
+  <p v-else-if="error">通信エラーが発生しました。しばらく時間をおいてから再度お試しください。</p>
+</footer>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+
+
+参考
+https://show-web.jp/2012/08/12/ajax%E3%81%A7wordpress%E3%81%AE%E3%82%B3%E3%83%B3%E3%83%86%E3%83%B3%E3%83%84%E3%82%92%E9%81%B7%E7%A7%BB%E3%81%9B%E3%81%9A%E8%A1%A8%E7%A4%BA%E3%81%95%E3%81%9B%E3%82%8B/
+
+
+単純なAjaxについてであれば上記で可能。
+
+admin-ajax.phpを利用することで簡略化されていた。
+取得したデータ形式をjson形式にすることが求められるのでそこらへん注意が必要。
+
+
+思考フローとして調べる内容をミクロ化したが、最初に細分化して考慮するフローを利用する。
+一度調査する時間があり、そこでカテゴライズ化する必要があった。
+
+=========
+
+REST API
+PHP
+wordpress
+ajax
+javascript
+jquery version
+ブラウザによるクロスオリジンの仕様
+X-WP-Nonceの内容
+
+=========
+今後の調査課題にする必要がありそう。
+
+REST API経由 → err
+
+nonce 認証コードを利用　→ err
+
+BadRequestなどの内容もあり、ajaxの通信表示までを目標に表示
+今後以下を参考に知識を深める。
+
+
+https://capitalp.jp/2017/10/17/post-to-wordpress-via-rest-api/
+
+https://hijiriworld.com/web/wordpress-ajax/
+https://chaika.hatenablog.com/entry/2017/09/08/090000
+
+ajax図
+https://unskilled.site/wordpress%E3%81%A7ajax%E5%AE%9F%E8%B7%B5%E7%B7%A8%E3%83%9A%E3%83%BC%E3%82%B8%E3%83%8D%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%92ajax%E3%81%A7%E8%A1%8C%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%8B/
+

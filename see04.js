@@ -115,8 +115,9 @@ Particle.prototype.reactToForces = function (fields) {
     totalAccelerationX += vectorX * force;
     totalAccelerationY += vectorY * force;
   }
-  this.ac = new Vector(totalAccelerationX, totalAccelerationY);
-  
+
+  this.ac = new Vector(totalAccelerationX, totalAccelerationY);  
+
   totalAccelerationX = 0;
   totalAccelerationY = 0;
   for (var i = 0; i < particles.length; i++) {
@@ -195,8 +196,10 @@ function ParticleEmitter(pos, vc, ang) {
   this.pos = pos; 
   this.vc = vc; 
   this.ang = ang || 0.09; 
-  this.color = "#999"; 
+  this.color = "#999";
+
 }
+
 ParticleEmitter.prototype.emit = function() {
   var angle = this.vc.angle() + 
       this.ang - (Math.random() * this.ang * 2);
@@ -218,13 +221,12 @@ function Force(pos, m) {
   this.pos = pos;
   this.mass = m || 100;
 }
+
 Force.prototype.grow = function (another) {
   this.mass += another.mass;
   this.burp = true;
   another.alive = false;
 };
-
-
 
 function G(data) {
   return 0.00674 * data;

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <section id="n">
+        <h1>ES6 script</h1>
+    </section>
+    <section>
+        <h1>ES6 script</h1>
+    </section>
+    <section>
+        <h1>ES6 script</h1>
+    </section>
+    <section>
+        <h1>ES6 script</h1>
+    </section>
+    <a data-href="" class="__js_addLink__"></a>
+</body>
+<script>
+
+// 'use strict'
+
+
+var kk = function(){
+
+    var fa = document.createDocumentFragment();
+    for (let n = 0; n < 10; n++) {
+        var child = document.createElement('div');
+        fa.appendChild(child);
+    }
+
+    document.getElementById('n').appendChild(fa);
+}
+
+kk();
+
+
+// console.log(kk());
+
+</script>
+</html>

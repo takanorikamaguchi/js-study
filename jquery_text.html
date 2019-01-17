@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
+	<meta charset="UTF-8">
+	<title>スクロールjs</title>
+</head>
+<style type="text/css" media="screen">
+
+*{		-webkit-transition: 1.3s;
+		transition: 1.3s;}
+	body,html{
+	padding: 0;
+	margin: 0;
+		 width: 100%;
+	 height: 100%;
+	}
+	body{
+		position: relative;
+		text-align: center;
+	}
+	body {
+  padding: 40px 0;
+  font-family: 'bebas', sans-serif;
+  background-color: #fff;
+}
+
+body .textcontainer {
+  padding: 40px 0;
+  text-align: center;
+}
+
+body .load_js {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #eee;
+}
+
+body .load_js.line > .particle {
+  opacity: 0;
+  position: absolute;
+  z-index: 3;
+  background-color: rgba(33, 150, 243, 0.5);
+  -webkit-animation: lineMv 3s ease-in infinite;
+          animation: lineMv 3s ease-in infinite;
+  width: 50%;
+  height: 1px;
+}
+
+body .load_js.line > .particle:before, body .load_js.line > .particle:after {
+  position: absolute;
+  z-index: 3;
+  content: '';
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(#aab7f8, #1d56ca);
+}
+
+body .load_js.line > .particle:before {
+  position: absolute;
+  content: '';
+  top: 60%;
+  left: 40%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 50%;
+  height: 50%;
+  border-radius: 40px;
+  border-top-right-radius: 0px;
+  background-color: rgba(251, 140, 0, 0.5);
+}
+
+.load_js_text {
+  font-size: 30px;
+  color: #fff;
+}
+
+@keyframes lineMv {
+  0% {
+  	background: linear-gradient(#5ff8ca, #60e08c);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+    -webkit-transform: translate(-20%, 0);
+            transform: translate(-20%, 0);
+  }
+  50%{background: linear-gradient(#0c5bfa, #00a1f0);}
+  100% {
+  	background: linear-gradient(#aab7f8, #1d56ca);
+    opacity: 0;
+    -webkit-transform: translate(-100%, 0);
+            transform: translate(-100%, 0);
+  }
+}
+
+</style>
+<body>
+	<h1>jquery学習</h1>
+	<div id="iii">next</div>
+<div id="jjj" class="outer">
+	<div class="wide0">
+	</div>
+</div>
+
+
+<section>
+	<div class="particletext bubbles">item 1</div>
+	<div>item 2</div>
+	<div>item 3</div>
+	<div>item 4</div>
+</section>
+
+<div class="load_js line">
+  <span class="load_js_text">HELLO WORLD</span>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+
+function lineload(){
+	line();
+}
+
+function line(){
+	$.each($(".load_js.line"),function(){
+		var lineNumber = ($(this).width()/40)*5;
+		for (var i = 0; i <= lineNumber ; i++) {
+			var size = ($.rnd(60,120)/10);
+			$(this).append('<span class="particle" style="top:'+ $.rnd(20,80) +'%; left:'+$.rnd(0,80)+'%; animation-delay: -'+($.rnd(0,30)/10)+ 's;"> </span>');
+		}
+	});
+}
+jQuery.rnd = function(m,n) {
+      m = parseInt(m);
+      n = parseInt(n);
+      return Math.floor( Math.random() * (n - m + 1) ) + m;
+};
+
+lineload();
+$(function(){
+
+  window.onload = function(){
+    setTimeout(function(){
+        $('.load_js').fadeOut(1500);
+    }, 2000);
+
+}
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>js | canvas Arts</title>
+
+	<style type="text/javascript">
+		body {
+			margin: 0;
+			padding: 0;
+			background-color: #ccc;
+		}
+		.canvas {
+			background-color: #fff;
+		}
+	</style>
+</head>
+
+<body>
+
+	<header>
+		<h1>
+			<span>js | canvas Arts01</span>
+		</h1>
+	</header>
+	<canvas id="canvas" class="canvas">
+		Canvas not suported!
+	</canvas>
+<script type="text/javascript">
+
+(function(){
+'use strict'
+
+let canvas = document.getElementById('canvas');
+let windowWidth = canvas.width = window.innerWidth;
+let windowHeight = canvas.height = window.innerHeight;
+let ctx = canvas.getContext('2d');
+
+let boxWidth = 50;
+let boxWidthNum = Math.floor(windowWidth/boxWidth);
+let boxHeightNum = Math.floor(windowHeight/boxWidth);
+let ptcBoxs = [];
+
+function ptc(){
+
+  this.width = 100;
+  this.height = 100;
+  this.size = 50;
+
+  this.x = 0;
+  this.y = 0;
+
+}
+
+ptc.prototype.draw = function( x, y ){
+
+cr();
+
+	this.x = x;
+	this.y = y;
+
+	for (let l = 0; l <= boxWidthNum; l++) {
+		for (let d = 0; d <= boxHeightNum; d++) {
+			    
+				ctx.fillStyle = '#eee';
+				ctx.beginPath();
+				ctx.arc(this.x, this.y, 50, 0, Math.PI*2, false);
+				ctx.fill();
+
+			this.x += boxWidth*2;
+
+			if( this.x >= window.innerWidth + 1 ){
+				this.x = 0;
+			}
+
+		}
+		this.y += boxWidth*2;
+	}
+
+    
+
+}
+
+function cr(){
+	ctx.fillStyle = '#fff';
+	ctx.clearRect(0,0,windowWidth,windowHeight);
+}
+
+
+let gg = new ptc();
+
+gg.draw(50,50);
+
+})();
+
+	</script>
+</body>
+</html>

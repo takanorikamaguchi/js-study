@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>js | canvas Arts</title>
+    <style>
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: #ccc;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    .canvas {
+        background-color: #ff0;
+    }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>
+          <span>js | canvas practice</span>
+        </h1>
+    </header>
+    <canvas id="c" class="canvas">
+        Canvas not suported!
+    </canvas>
+    <script type="text/javascript">
+    window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame;
+
+    var count = 0;
+
+
+    function sank() {
+
+        var canvas = document.getElementById('c'),
+            ctx = canvas.getContext('2d'),
+            w = canvas.width = window.innerWidth,
+            h = canvas.height = window.innerHeight,
+            blockNum = 100,
+            changeCount = 0,
+            glovalAlphaNumber = 1,
+            imageColorData = [],
+            drowBox = [],
+            a = 0,
+            mboxWidth = 1;
+
+             var boxNumber = 30;
+             var boxLenght = w/boxNumber;
+             var boxheightLenght = h/boxNumber;
+             var boxWidth = boxLenght;
+
+                this.init = function(h) {
+                    veiwBox(h);
+                }
+
+        var veiwBox = function(h) {
+
+            cr();
+
+            this.positionX = 0;
+            this.positionY = h;
+            this.mboxWsidth = 1;
+
+            this.boxLength = Math.floor(boxLenght);
+            var grad = "#cccccc";
+
+            for (var g = 0; g < boxheightLenght; g++) {
+                this.positionX = 0;
+        
+                for (var n = 0; n < boxNumber; n++) {
+
+                    ctx.fillStyle = "rgba(127, 255, 212, 0.5)";
+                    ctx.fillRect(this.positionX,this.positionY, boxWidth, boxWidth);
+                    ctx.fill();
+                    ctx.restore();
+                    this.positionX += boxLenght;
+                
+                }
+                this.positionY += boxLenght;
+            }
+
+            // upload();
+
+        }
+
+
+        var cr = function() {
+            ctx.fillStyle = "rgba(255, 0, 0, 0.5)";
+            ctx.clearRect(0, 0, w, h);
+        }
+
+        var upload = function() {
+
+    var timer = setInterval(function(){
+
+            changeCount ++;            
+            this.positionX = 0;
+            this.positionY = 0;
+            cr();
+                ctx.fillStyle = "rgba(127, 255, 212, 0.5)";
+                a = -1;
+                boxWidth += a;
+
+        for (var g = 0; g < boxheightLenght; g++) {
+            for (var n = 0; n < boxNumber; n++) {
+
+                    if(n == 0){
+                        this.positionX = 0.5*changeCount;
+                    }
+                    if( changeCount > boxNumber/2 ){
+                      ctx.globalAlpha = glovalAlphaNumber;
+                      glovalAlphaNumber -= 0.01;
+                    }
+
+                ctx.fillRect(this.positionX,this.positionY, boxWidth, boxWidth);
+                ctx.restore();
+                this.positionX += boxLenght + -0.5*a;
+            
+            }
+            this.positionY += boxLenght;
+        }
+
+            this.positionY += -0.5*a;
+
+            if(changeCount > 30 ){
+              clearInterval(timer);
+            }
+
+    }, 30);
+
+        
+        }
+
+  
+    
+    }
+
+    var Sank = [];
+    Sank = new sank();
+    Sank.init(0);
+
+
+
+    </script>
+</body>
+
+</html>

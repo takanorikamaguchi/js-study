@@ -1,68 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Vue.js</title>
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  <style type="text/css" media="screen">
-    .ookk {
-      text-decoration: line-through;
-      color: red;
-    }
-  </style>
-  <style type="text/css">
-    .done {
-      text-decoration: line-through;
-      color: red;
-    }
-    .section01 {background-color: #ccc;}
-    .section02 {background-color: #ffc;}
-    .section03 {background-color: #00c;}
-  </style>
-</head>
-<body>
- <section id="app" class="container">
-   <div class="tt">
-<h1>Vue.js</h1>
-</div>
-  <ul class="list-unstyled">
-    <li v-for="todo in todos" v-bind:class="[todo.classnum]">
-         <h2>{{todo.tit}}</h>
-          <p>{{todo.text}}</p>
-    </li>
-  </ul>
-</section>
- <section id="app02" class="container">
-   <div class="tt">
-<h1>Vue.js</h1>
-</div>
-  <ul class="list-unstyled">
-    <li v-for="todo in result" v-bind:class="[todo.classnum]">
-         <h2>{{todo.tit}}</h>
-          <p>{{todo.text}}</p>
-    </li>
-  </ul>
-</section>
-<div id="app03" v-cloak>
-  <div v-if="!error">
-    <ul>
-      <li v-for="item in result">
-        <p>{{ item.text }}</p>
-      </li>
-    <ul>
-  </div>
-  <p v-else-if="error">通信エラーが発生しました。しばらく時間をおいてから再度お試しください。</p>
-</div>
-  <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/vue/dist/vue.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js"></script>
- <script type="text/javascript">
-   var app = new Vue({
+
+window.onload = function(){
+
+var app = new Vue({
     el: '#app',
     data:  {
       todos : [
-      {text:'あの日みた夕日', classnum:'section01',tit:'もしくは'},
+      {text:'あの日みたそれがし', classnum:'section01',tit:'もしくは'},
       {text:'あの日みた夕日', classnum:'section02',tit:'世界が滅びる話。'},
       {text:'あの日みた夕日', classnum:'section03',tit:'ノアと箱舟の話'}
       ]
@@ -104,6 +47,7 @@
       }
      }
    });
+
 var mixin = {
     ajax : {
       data : {
@@ -143,13 +87,15 @@ var mixin = {
     }
    }
 }
-   var ur = 'http://tkwebwd.xyz/p/se.json';
-   var ap = new Vue({
-    el: '#app02',
+
+  var urlNmae = '//tkweb-next.work/vue/js/';
+
+  var footer = new Vue({
+    el: '#footer',
     mixins : [mixin.ajax],
     data:  {
       request:{
-        url: ur,
+        url: urlNmae + 't.json',
         data:{
           data:'20180210'
         }
@@ -157,6 +103,7 @@ var mixin = {
       //-todos : []
     }
    });
+
 var mixin = {
   ajax:{
     data:{
@@ -168,10 +115,11 @@ var mixin = {
       getData:function(){
         var _this = this;
         _this.loading = true;
-          console.log(_this);
+        console.log(_this.request.url);
+
         $.ajax({
           url: _this.request.url,
-          type: 'GET',
+          type: 'POST',
           dataType: 'JSON',
           timeout : 30000,
           data:_this.request.data
@@ -192,8 +140,9 @@ var mixin = {
             _this.error = true;
             _this.loading = false;
           }
-          console.log('ダメですね。');
+          console.log(_this.error);
         });
+
       }
     },
     mounted:function(){
@@ -203,18 +152,45 @@ var mixin = {
   }
 }
 
-var app = new Vue({
-  el:'#app03',
+var headerCompornent = Vue.extend({
+  template: '<header>'+
+  '<div class="nnn">' +
+  '<h1>Vue.js</h1>' +
+  '<p>OO@@@</p>' +
+  '</div>' +
+  '</header>'
+});
+
+var headerCompornentsecond = Vue.extend({
+  props: ['headeritem'],
+  template: '<li>{{ headeritem.text }}{{ headeritem.url }}{{ headeritem.tel }}</li>'
+});
+
+// Vue.component('components-headersecond', {
+// props: ['headeritem'],
+// template: '<li>{{ headeritem.text }}<li>',
+// });
+
+var appheader = new Vue({
+  el:'#header',
   mixins: [mixin.ajax],
   data:{
     request:{
-      url:'http://tkwebwd.xyz/p/se.json', //呼び出しurl
-      data:{ //リクエストデータ
-        date:'2017/12/31'
+      url: urlNmae + 'header.json',
+      data:{
+        date:'2018'
       }
     }
+  },
+  components: {
+    'components-header' : headerCompornent,
+    'components-headersecond' : headerCompornentsecond,
+  },
+  methods: {
+  gg : function(e){
+    console.log(request.data);
+  },
   }
 });
- </script>
-</body>
-</html>
+
+};

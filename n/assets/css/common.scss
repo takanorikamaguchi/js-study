@@ -1,0 +1,294 @@
+
+$pcwidth: 1200px;
+$tabwidth: 768px;
+$spwidth: 480px;
+
+
+@import url('https://fonts.googleapis.com/css?family=Josefin+Slab:400,600');
+
+@mixin width($device: sp) {
+    @if $device == pc {
+        max-width: 960px;
+        margin: 0 auto;
+        width: 100%;
+        padding: 4rem 2.5rem;        
+    } @else if $device == tab {
+        max-width: 100%;
+        padding: 5rem 10%;        
+    } @else if $device == sp {
+        max-width: 100%;
+        padding: 3rem  5%;
+    }
+}
+
+html {
+    font-size: 62.5%;
+    box-sizing: border-box;
+}
+
+* {
+    box-sizing: inherit;
+}
+
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+body {
+    -webkit-font-feature-settings: palt;
+    font-feature-settings: palt;
+    font-family:-apple-system, BlinkMacSystemFont, "Helvetica Neue", YuGothic, "ヒラギノ角ゴ ProN W3", Hiragino Kaku Gothic ProN, Arial, "メイリオ", Meiryo, sans-serif;;
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "游ゴシック Medium", YuGothic, YuGothicM, "Hiragino Kaku Gothic ProN", メイリオ, Meiryo, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.headerInner_logoBody {
+    padding: 0 1rem 3rem;
+}
+
+.headerInner {
+    @include width(pc);
+}
+
+.headerInner_logo {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    padding: 2rem 2rem 2rem 0 ;
+    font-family: 'Josefin Slab', serif;
+    font-size: 3.8rem;
+}
+
+.headerInner_logo_link {
+    position: relative;
+    display: inline-block;
+    &::after {
+        content: "";
+        position: absolute;
+        top: calc(50% + 1px);
+        left: 50%;
+        width: 0;
+        height: 1px;
+        background-color: #eee;
+        animation: mvLogoback 1s ease-in forwards;
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes mvLogoback {
+    0% {width: 0;}
+    100% {width: 150px;transform: translateX(-50%) rotate(45deg);}
+}
+
+.headerInner_logoBody_text:nth-child(2) {
+    padding-bottom: 1rem;
+    font-size: 2.8rem;
+}
+.headerInner_logoBody_text:nth-child(3) {
+    font-size: 2rem;
+}
+
+.l-section {
+    @include width(pc);
+}
+
+.section_item_title {
+    position: relative;
+    display: inline-block;
+    padding: 0 1rem 1.5rem;
+    font-size: 3.2rem;
+    &::after {
+        content: "";
+        position: absolute;
+        top: calc(50% + 1px);
+        left: calc(100% + 10px);
+        width: 150px;
+        height: 1px;
+        background-color: #eee;
+    }
+}
+
+.section_item_wrap {
+    position: relative;
+    z-index: 1;
+}
+
+.section_list {
+    background-color: #eee;
+    & li {
+        position: relative;
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            height: 0;
+            background-color: rgba(255,255,255,0.4);
+        }
+        &:nth-child(1)::before {
+        top: 0;
+        left: -70%;
+        width: 80%;
+        transform: skew(-30deg);
+        animation: sectionMvbg 0.5s ease-in forwards;
+        }
+        &:nth-child(1)::after {
+        right: -70%;
+        bottom: 0;
+        width: 80%;
+        transform: skew(-30deg);
+        animation: sectionMvbg 0.5s ease-in .1s forwards;
+        }
+        &:nth-child(2)::before {
+        top: 0;
+        right: -70%;
+        width: 80%;
+        transform: skew(30deg);
+        animation: sectionMvbg 0.5s ease-in .1s forwards;
+        }
+        &:nth-child(2)::after {
+        left: -70%;
+        bottom: 0;
+        width: 80%;
+        transform: skew(30deg);
+        animation: sectionMvbg 0.5s ease-in forwards;
+        }
+        &:nth-child(3)::before {
+            width: 20vw;
+            height: 20vw;
+            left: 10vw;
+            background-color: #7ef5cf;
+            transform: rotate(45deg);
+            box-shadow: 400px -100px 0 0 #7ef5cf, -300px 0 0 0 #7ef5cf, -100px 400px 0 0 #7ef5cf, 100px -400px 0 0 #7ef5cf;
+        }
+        &:nth-child(3)::after{
+        width: 20vw;
+        height: 20vw;
+        right: 10vw;
+        background-color: #7ef5cf;
+        transform: rotate(45deg);
+        box-shadow: -100px 100px 0 0 #fff,100px -100px 0 0 #fff;
+        }
+        &:nth-child(4)::before {
+            width: 20vw;
+            height: 20vw;
+            left: 10vw;
+        background-color: #61a7ec;
+        transform: rotate(45deg);
+        box-shadow: 400px -100px 0 0 #61a7ec, -300px 0 0 0 #61a7ec, -100px 400px 0 0 #61a7ec, 100px -400px 0 0 #61a7ec;
+        }
+            &:nth-child(4)::after{
+                width: 20vw;
+                height: 20vw;
+                right: 10vw;            
+            background-color: #61a7ec;
+            transform: rotate(45deg);
+            box-shadow: -100px 100px 0 0 #fff,100px -100px 0 0 #fff;
+        }
+    }
+}
+
+.three_section_block {
+    @include width(pc);
+}
+
+.list {
+    display: flex;
+    padding: 4rem 0;
+    font-size: 2rem;
+}
+
+.item {
+    position: relative;
+    z-index: 1;
+    width: 33.33%;
+    min-height: 300px;
+    overflow: hidden;
+}
+
+.item_sub_wrap {
+    position: absolute;
+    z-index: 2;
+    top: 100%;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+    transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    background-color: #eee;
+}
+
+.item:hover .item_sub_wrap {
+    top: 0;
+}
+
+
+
+
+@keyframes sectionMvbg {
+    0% { height: 0; }
+    100% { height: 100%; }
+}
+
+.motion_section_h2 {
+    @include width(pc);    
+}
+
+.section_item_text {
+    font-size: 1.6rem;
+    line-height: 1.6;
+}
+
+.footer {
+    position: relative;
+    padding: 3rem 0 8rem;
+    background-color: #333;
+    &::before {
+        content: "I walk slowly, but I never walk backward.";
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        font-family: 'Josefin Slab', serif;
+        font-size: 5rem;
+        color: rgba(255,255,255,0.2);
+    }
+    & a {
+        color: #fff;
+    }
+}
+
+.footerInner {
+    position: relative;
+    @include width(pc);
+    text-align: center;
+    color: #eee;
+
+}
+
+.footerInner_logo {
+    font-family: 'Josefin Slab', serif;
+    font-size: 3rem;
+}
+
+.footerInner_logoBody_text {
+    padding-top: 2rem;
+    font-size: 2rem;
+}
+
+
+/* --- UI --- */
+.btn {
+    display: inline-block;
+    padding: 1rem 2rem;
+  }
+
+
+@media only screen and (max-width:768px) {
+
+
+
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>js | canvas Arts</title>
+    <style>
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: #ccc;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    .canvas {
+        background-color: #ff0;
+    }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>
+          <span>js | canvas practice</span>
+        </h1>
+    </header>
+    <canvas id="stage" class="canvas">
+        Canvas not suported!
+    </canvas>
+    <script type="text/javascript">
+    window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame;
+
+    var count = 0;
+
+    function sank() {
+
+        var canvas = document.getElementById('stage'),
+            ctx = canvas.getContext('2d'),
+            w = canvas.width = window.innerWidth,
+            h = canvas.height = window.innerHeight,
+            blockNum = 100,
+            changeCount = 0;
+        
+        }
+
+
+    </script>
+</body>
+
+</html>

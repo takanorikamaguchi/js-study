@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>js | canvas Arts</title>
+    <style>
+    body {
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    .canvas {
+        background-color: skyblue;
+        text-align: center;
+    }
+    .btn {
+     display: inline-block;
+     width: 200px;
+     padding: 10px;
+     background-color: #ccc;
+     color: #fff;
+     cursor: pointer;
+    }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>
+          <span>js | canvas 迷路</span>
+        </h1>
+    </header>
+   <div class="canvas_wrap">
+    <canvas id="stage" class="canvas">
+     Canvas not suported!
+    </canvas>
+   </div>
+    <p class="btn">start</p>
+    <script type="text/javascript">
+
+    window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame;
+
+(function(){
+
+    var count = 0;
+    var gameBtn = document.getElementsByClassName('btn');
+
+var Maze = function(col, row){
+   this.map = [];
+   this.col = 13,
+   this.row = 13,
+   this.startX = 0,
+   this.startY = 0,
+   this.goalX = col - 1,
+   this.goalY = row - 1,
+   this.points = [
+   [0,-1],
+   [0,1],
+   [1,0],
+   [-1,0]
+   ];
+
+   this.rand = function(n) {
+     return Math.floor(Math.random() * (n + 1));
+   }
+
+   this.init = function(){
+      for (let x = 0; x < col; x ++) {
+       this.map[x] = [];
+       for (let y = 0; y < row; y ++) {
+        this.map[x][y] = 0;
+       }
+      }
+
+      for (let x = 1; x < col; x += 2) {
+       for (let y = 1; y < row; y += 2) {
+        this.map[x][y] = 1;
+       }
+      }
+
+      for (let x = 1; x < col; x += 2) {
+       for (let y = 1; y < row; y += 2) {
+        do {
+          if(x === 1){
+           var r = this.points[this.rand(3)];
+          }else {
+           var r = this.points[this.rand(2)];
+          }
+        } while( this.map[x + r[0][y + r[1]] === 1] === 1 );
+        this.map[x + r[0]][y + r[1]] = 1;
+
+       }
+      }
+      
+   };
+
+   this.draw = function(){
+    var view = new View();
+    view.draw(this);
+   };
+
+};
+
+var View = function(){
+
+  this.wallsize = 10,
+  this.wallColor = '#3261AB',
+  this.routeColor = '#FF0088';
+  this.canvas = document.getElementById('stage'),
+  this.ctx = this.canvas.getContext('2d');
+   if(! this.canvas || !this.canvas.getContext){
+    return false;
+   }
+
+  this.draw = function(maze){
+    this.w = this.canvas.width = (maze.col + 2) * this.wallsize,
+    this.h = this.canvas.height = (maze.row + 2) * this.wallsize;
+      for (let x = 0; x < maze.row+2; x++) {
+        this.drowWall(x,0);
+        this.drowWall(x,maze.row + 1);    
+      }
+
+      for (let y = 0; y < maze.col+2; y++) {
+        this.drowWall(0,y);
+        this.drowWall(maze.col + 1, y);
+      }
+
+      for (let x = 0; x < maze.col; x++) {
+        for (let y = 0; y < maze.row; y++) {
+          if(maze.map[x][y] === 1){
+             this.drowWall(x + 1,y + 1)
+          }
+          if((x === maze.startX && y === maze.startY) || (x === maze.goalX && y === maze.goalY)){
+             this.drowRoute(x + 1,y + 1);
+          }
+        }
+      }
+  };
+     this.drowWall = function(x,y){
+       this.ctx.fillStyle = this.wallColor;
+       this.drowRect(x,y);
+     };
+
+     this.drowRoute = function(x,y){
+       this.ctx.fillStyle = '#ffffff';
+       this.drowRect(x,y);
+     };
+
+     this.drowRect = function(x,y){
+       this.ctx.fillRect(
+         x * this.wallsize,
+         y * this.wallsize,
+         this.wallsize,
+         this.wallsize
+       );
+     };
+
+};
+  
+
+function reset(){
+  var maze = new Maze(13,13);
+    maze.init();
+    maze.draw();
+}
+
+reset();
+
+gameBtn[0].addEventListener('click',function(){
+  reset();
+});
+
+})();
+
+    </script>
+</body>
+
+</html>

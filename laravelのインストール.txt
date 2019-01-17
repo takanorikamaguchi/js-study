@@ -1,0 +1,13 @@
+laravelのインストール参考
+
+ヴァージョンで構造に変化があるので注意が必要
+
+
+https://readouble.com/laravel/5.2/ja/quickstart.html#installation
+
+https://owani.net/php/laravel/740/
+
+http://recipes.laravel.jp/
+
+http://laraweb.net/basic_knowledge/
+

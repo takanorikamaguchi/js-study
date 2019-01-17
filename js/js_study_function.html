@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>js | canvas Arts</title>
+	<style type="text/stylesheet">
+		body {
+			margin: 0;
+			padding: 0;
+		}
+	</style>
+</head>
+
+<body>
+
+	<header>
+		<h1>
+			<span>js | function</span>
+		</h1>
+		<div id="js">change for js dom</div>
+	</header>
+
+  <script type="text/javascript">
+(function(){
+'use strict'
+
+
+// function nnn(){
+// 	var r = 'ころ先生';
+// 	console.log(r);
+// 	function ggg(){
+// 	  var b = 'rejenndo';
+// 	  return b;
+// 	}
+	
+// 	console.log(r + ggg() );
+// }
+
+// nnn();
+
+// var pushdom = document.getElementById('js');
+// pushdom.innerHTML = nnn();
+
+function Sj(koda){
+	this.setName(koda);
+	this.cd = 'プロタイプのクラス';
+}
+
+Sj.prototype = {
+	setName : function(koda) {
+		this._name = koda;
+	},
+	getName : function() {
+		return this._name;
+	},
+	talk: function(){
+		console.log(this._name + 'が話しているとは。' + this.cd );
+	}
+}
+
+let hh = new Sj('徒然');
+let ds = new Sj('それがし');
+
+hh.talk();
+ds.talk();
+
+console.log(hh);
+
+})();
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Promise</title>
+</head>
+<body>
+	<header class="header">
+		<h1>js Promise</h1>
+	</header>
+	<main>
+		<section>
+			<div class="inner">hello world</div>
+		</section>
+	</main>
+	<footer class="footer">
+		<div class="inner"><small class="copy">&copy; tk</small></div>
+	</footer>
+
+	<script>
+
+const q = document.querySelector('.header');
+const w = document.querySelector('.footer');
+		
+const prom01 = (r) => {
+
+	return new Promise((resolve) => {
+		window.setTimeout(() => {
+			q.className += ' kore';
+			r += 'ls';
+			resolve(r);
+		},3000);
+	});
+
+};
+
+const prom02 = (r) => {
+
+	return new Promise((resolve) => {
+		window.setTimeout(() => {
+			w.className += ' kore';
+			r += 'ls';
+			resolve(r);
+		},6000);
+	});
+
+};
+
+
+prom01('hoge')
+.then(prom02)
+.then((result) => {
+ console.log(result);
+}).catch( (e) => {
+console.log(e);
+});
+
+
+
+	</script>
+</body>
+</html>

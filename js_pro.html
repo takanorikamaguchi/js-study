@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ani</title>
+</head>
+<style>
+
+section {
+  position: relative;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  transition: all 2s;
+  background-color: #3747bb;
+}
+
+.wrapper {
+  position: relative;
+}
+
+
+</style>
+
+<body>
+  <div class="wrapper">
+    <section class="l-section">
+        <h1 class="nnn">js</h1>
+    </section>
+    <div class="js-load">
+      <div class="js-load_Inner">
+        <ul>
+          <li id="koko1">oooo1</li>
+          <li id="koko2">oooo2</li>
+          <li id="koko3">oooo3</li>
+          <li id="koko4">oooo4</li>
+          <li id="koko5">oooo5</li>
+          <li id="koko6">oooo6</li>
+          <li id="koko7">oooo7</li>
+        </ul>
+      </div>
+      <div id="addDom">
+      </div>
+    </div>
+  </div> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+
+(function($){
+})(jQuery);
+
+// 'use strict'
+
+var arr = ['言葉よりも結果','現実と幻想','花びらは感情で散る','生物学と物理学','アンフェタミンとクロロエチレンの話','geekな世界','憂鬱と月が美しい時の夏目漱石','物理学と現象の心理物理学','あの日見た花の名が我輩は猫である','ベンゼン環をもとに香水を学ぼう'];
+
+var Parentf = function(){
+  this.textNname = '自由はどう思うかという感情だ hello world';
+
+    this.func = function() {
+        alert(this.name);
+    }
+
+    this.ParentfV = function(){
+　    document.getElementById('koko3').className = 'moshi';
+    }
+
+    this.no = function(){
+      const k = document.getElementById('koko6')
+      k.className = 'moshi';
+      this.textNname = 'hello world';
+      k.textContent = this.textNname;
+    }
+
+};
+
+Parentf.prototype = {
+   ParentfNN : function(){
+    const k = document.getElementById('koko3')
+    k.className = 'moshi';
+    k.textContent = this.textNname;
+    },
+     v : function(){
+        document.getElementById('koko2').className = 'moshi';
+      },
+     n : function(){
+        document.getElementById('koko1').className = 'moshi';
+      },
+}
+
+    Parentf.prototype.soreee = function(){
+      document.getElementById('koko7').className = 'moshi';
+    };
+
+  var j = new Parentf();
+
+  j.soreee();
+  j.ParentfNN();
+  j.v();
+  j.n();
+
+  var k = j;
+
+  k.no();
+
+function jo(){
+  this.textNname = '世界はだからこそ美しい';
+  this.kojikoji = 'その人らしさとは';
+
+}
+
+    jo.prototype = {
+
+      ParentfNH : function(){
+        this.textNname = '世界は美しい';
+        const k = document.getElementById('koko4')
+        k.className = 'moshi';
+        k.textContent = this.textNname;
+
+      },
+      HP : function(){
+        this.textNname = '世界はそれだから美しい';
+        const k = document.getElementById('koko7')
+        k.className = 'moshi';
+        k.textContent = this.textNname;
+
+      },
+      nn: function(){
+
+        // this.kojikoji = 'good luck';
+
+        var jsn = document.getElementById('addDom');
+        var cureateDom = document.createDocumentFragment();
+        for (var i = 0; i < arr.length; i++) {
+          var $m = document.createElement('div');
+          $m.id = 'no'+ i;
+          if( i == 2 ){
+          var $text = document.createTextNode(this.kojikoji);
+          }else{
+          var $text = document.createTextNode(arr[i]);
+          }
+
+          $m.appendChild($text);
+          jsn.appendChild($m);
+
+
+
+        }
+      }
+
+    }
+
+ var t = new jo();
+
+ t.ParentfNH();
+ t.HP();
+
+ t.nn();
+
+</script>
+</body>
+
+</html>
