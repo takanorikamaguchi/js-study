@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta http-equiv="X-UA-Compatible" content="ie=edge">
+ <title>THREE.js</title>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/99/three.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
+</head>
+<style>
+ html,
+ body {
+  width: 100%;
+  height: 100%;
+ }
+
+ * {
+  margin: 0;
+  padding: 0;
+ }
+</style>
+
+<body>
+ <section class="l-section">
+  <h1>three</h1>
+  <canvas id="stage"></canvas>
+ </section>
+ <script>
+  let arryListMesh = [];
+  // const rectLight = new THREE.RectAreaLight(0xffffff, 1, 100, 100);
+  // rectLight.position.set(50, 50, 20);
+  // rectLight.lookAt(0, 0, 0);
+  // this.add(rectLight);
+
+  // const lightHelper = new THREE.RectAreaLightHelper(rectLight);
+  // this.add(lightHelper);
+
+  const radians = (degrees) => {
+   return degrees * Math.PI / 180;
+  }
+  const distance = (x1, y1, x2, y2) => {
+   return Math.sqrt(Math.pow(x1 - x2), 2) + Math.sqrt(Math.pow(y1 - y2), 2)
+  }
+
+  const map = (value, start1, stop1, start2, stop2) => {
+   return (value - start1) / (stop1 - start1) * (stop2 + start2) + start2
+  }
+
+  class boxGroup01 extends THREE.Group {
+   constructor() {
+    super();
+
+    const geometryddd = new THREE.TorusGeometry(200, 50, 64, 50);
+    const mouse = new THREE.Vector2();
+    const material = new THREE.MeshNormalMaterial({
+     color: 0xa6b5d7,
+     wireframe: true
+    });
+    const lll = new THREE.Mesh(geometryddd, material);
+    this.add(lll);
+   }
+  }
+
+  class boxGroup02 extends THREE.Group {
+   constructor() {
+    super();
+    const geometry = new THREE.TorusGeometry(100, 25, 32, 25);
+    const mouse = new THREE.Vector2();
+    const material = new THREE.MeshLambertMaterial({
+     color: 0x6699ff,
+     wireframe: true
+    });
+    const lll = new THREE.Mesh(geometry, material);
+    this.add(lll);
+   }
+  }
+
+  class boxGroup03 extends THREE.Group {
+   constructor() {
+    super();
+    var points = [];
+    for (var i = 0; i < 10; i++) {
+     points.push(new THREE.Vector2(Math.sin(i * 0.2) * 10 + 5, (i - 5) * 2));
+    }
+    var geometry = new THREE.LatheGeometry(points);
+    const material = new THREE.MeshBasicMaterial({
+     color: 0xffff00
+    });
+    const lll = new THREE.Mesh(geometry, material);
+    this.add(lll);
+
+   }
+  }
+
+  class boxGroup04 extends THREE.Group {
+   constructor() {
+    super();
+    let geometry = new THREE.BoxGeometry(100, 100, 100);
+    const material = new THREE.MeshNormalMaterial({
+     color: 0x2290ff,
+     roughness: 0.1,
+     metalness: 0.2
+    });
+    const lll = new THREE.Mesh(geometry, material);
+    this.add(lll);
+   }
+  }
+
+  class boxGroup05 extends THREE.Group {
+   constructor() {
+    super();
+    let group = new THREE.Group();
+
+    const spotLight = new THREE.SpotLight(
+     0xffffff,
+     4,
+     2000,
+     Math.PI / 5,
+     0.2,
+     1.5
+    );
+    spotLight.position.set(500, 300, 500);
+    spotLight.castShadow = true;
+    spotLight.shadow.mapSize.width = 2048;
+    spotLight.shadow.mapSize.height = 2048;
+    this.add(spotLight);
+    let geometry = new THREE.BoxGeometry(45, 45, 45);
+    let material = new THREE.MeshNormalMaterial({
+     color: 0x2290ff,
+     roughness: 0.1,
+     metalness: 0.2
+    })
+    let box;
+    for (let i = 0; i < 40; i++) {
+     box = new THREE.Mesh(new THREE.BoxGeometry(50, 50, 50));
+     box.position.set(
+      Math.round((Math.random() - 0.5) * i) * 50 + 25,
+      Math.round((Math.random() - 0.5) * i) * 50 + 25,
+      Math.round((Math.random() - 0.5) * i) * 50 + 25
+     )
+     geometry.mergeMesh(box)
+
+    }
+    const mesh = new THREE.Mesh(geometry, material);
+    this.add(mesh)
+   }
+  }
+
+  let init = function () {
+   const canvasElement = document.getElementById('stage');
+   const width = window.innerWidth;
+   const height = window.innerHeight;
+
+   let group01 = new boxGroup01();
+   let group02 = new boxGroup02();
+   let group03 = new boxGroup03();
+   let group04 = new boxGroup04();
+   let group05 = new boxGroup05();
+
+   const scene = new THREE.Scene();
+
+   const boxContiter = new THREE.Object3D();
+   scene.add(boxContiter)
+   let geometryList = [
+    group01, group02, group03, group04, group05
+   ];
+   // const geometryList = [
+   //  new THREE.SphereGeometry(50), // 球体
+   //  new THREE.BoxGeometry(100, 100, 100), // 直方体
+   //  new THREE.PlaneGeometry(100, 100), // 平面
+   //  new THREE.TetrahedronGeometry(100, 0), // カプセル形状
+   //  new THREE.ConeGeometry(100, 100, 32), // 三角錐
+   //  new THREE.CylinderGeometry(50, 50, 100, 32), // 円柱
+   //  new THREE.TorusGeometry(50, 30, 16, 100) // ドーナツ形状
+   // ];
+
+   // const camera = new THREE.OrthographicCamera(-480, +480, 270, -270, 1, 600);
+   const camera = new THREE.PerspectiveCamera(65, width / height, 1, 10000);
+   camera.updateProjectionMatrix();
+
+   camera.position.set(100, 0, +600);
+   const renderer = new THREE.WebGLRenderer({
+    canvas: canvasElement,
+   });
+
+   renderer.setPixelRatio(window.devicePixelRatio);
+   camera.aspect = width / height;
+   // camera.updateProjectionMatrix();
+   for (const n in geometryList) {
+    if (geometryList.hasOwnProperty(n)) {
+     const mesh = geometryList[n]
+     // const mesh = new THREE.Mesh(geometryList[n], material)
+     boxContiter.add(mesh)
+    }
+   }
+
+   renderer.setSize(width, height);
+   renderer.render(scene, camera);
+   // renderer.shadowMap.enabled = true;
+   let raycaster = new THREE.Raycaster();
+
+   const directionalLight = new THREE.DirectionalLight(0xffffff);
+   directionalLight.position.set(1, 1, 1);
+   scene.add(directionalLight);
+
+   const pointLight = new THREE.PointLight(0xffffff, 2, 1000);
+   scene.add(pointLight);
+   const pointLightHelper = new THREE.PointLightHelper(pointLight, 30);
+   scene.add(pointLightHelper);
+
+   let settings = {
+    __one: function () {
+     const intersects = raycaster.intersectObjects(scene.children)
+     boxContiter.rotation.x += 0.04;
+     boxContiter.rotation.y += 0.04;
+     renderer.render(scene, camera)
+     requestAnimationFrame(settings.__one);
+    },
+    __next: function (e) {},
+    __action: function () {
+     // console.log('-----------------------------------------------------')
+    }
+   }
+   settings.__one()
+
+  }
+
+
+  window.addEventListener('load', function () {
+   init();
+  })
+ </script>
+</body>
+
+</html>

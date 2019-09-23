@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta http-equiv="X-UA-Compatible" content="ie=edge">
+ <title>THREE.js</title>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.1/dat.gui.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/99/three.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
+</head>
+<style>
+ html,
+ body {
+  width: 100%;
+  height: 100%;
+ }
+
+ * {
+  margin: 0;
+  padding: 0;
+ }
+</style>
+
+<body>
+ <section class="l-section">
+  <h1>three</h1>
+  <canvas id="stage"></canvas>
+  <div id="n"></div>
+ </section>
+ <script>
+  let arryListMesh = [];
+
+
+  const radians = (degrees) => {
+   return degrees * Math.PI / 180;
+  }
+  const distance = (x1, y1, x2, y2) => {
+   return Math.sqrt(Math.pow(x1 - x2), 2) + Math.sqrt(Math.pow(y1 - y2), 2)
+  }
+
+  const map = (value, start1, stop1, start2, stop2) => {
+   return (value - start1) / (stop1 - start1) * (stop2 + start2) + start2
+  }
+
+  class noteChange {
+   constructor(conainer, parts) {
+    this.conainer = conainer;
+    this.parts = parts;
+    this.scene = null;
+    this.camera = null;
+    this.mesh = null
+    this.geometory = null
+    this.material = null
+
+    this.body = 100;
+    this.lx = 40;
+    this.lz = 64;
+    this.ly = 40;
+
+    this.cameraPositionX = 0
+    this.cameraPositionY = 0
+    this.cameraZoom = 1020
+
+    this.light01 = 2;
+    this.light02 = 0;
+
+    this.lightPosi01 = 1;
+    this.lightPosi02 = 1;
+    this.lightPosi03 = 1;
+
+    this.meshRotationX = 0;
+    this.meshRotationY = 0;
+
+    this.renderer = null;
+    this.gui = null;
+    this.windowWidth = window.innerWidth;
+    this.windowHeight = window.innerHeight;
+    this.t = null;
+   }
+
+   init() {
+    this.renderer = new THREE.WebGLRenderer({
+     canvas: this.conainer,
+     // alpha: true,
+     antialias: true
+    })
+    this.renderer.setSize(this.windowWidth, this.windowHeight);
+    this.scene = new THREE.Scene();
+    // this.camera = new THREE.PerspectiveCamera(
+    //  45,
+    //  this.windowWidth / this.windowHeight,
+    //  0.1,
+    //  10000
+    // );
+    this.camera = new THREE.PerspectiveCamera(
+     45,
+     this.windowWidth / this.windowHeight);
+    this.camera.position.set(this.cameraPositionX, this.cameraPositionY, this.cameraZoom)
+    // this.camera.position.z + 50;
+    this.camera.lookAt = this.scene.position;
+    console.log(this.body)
+    this.geometory = new THREE.TorusGeometry(this.body, this.lx, this.lz, this
+     .ly);
+    this.material = new THREE.MeshStandardMaterial({
+     color: 0x6699ff,
+     roughness: 0.5
+    });
+
+    this.mesh = new THREE.Mesh(this.geometory, this.material);
+    this.addLight();
+
+    this.mesh.rotation.x = this.meshRotationX;
+    this.mesh.rotation.y = this.meshRotationY;
+
+    this.scene.add(this.mesh);
+
+    this.renderer.render(this.scene, this.camera)
+
+    let gui = new dat.GUI();
+
+    this.t = gui.addFolder("Foilder add");
+    let arrbody = ["body", "lx", "lz", "ly"]
+    for (let index = 0; index < arrbody.length; index++) {
+     this.t.add(this, arrbody[index]).name(arrbody[index]).onChange(() => {
+      this.formalStyleChange()
+     });
+    }
+
+    this.n = gui.addFolder("camera");
+    let arrlgiht = ["cameraPositionX", "cameraPositionY", "cameraZoom"]
+    for (let index = 0; index < arrlgiht.length; index++) {
+     this.n.add(this, arrlgiht[index]).name(arrlgiht[index]).onChange(() => {
+      this.formalStyleChange()
+     });
+    }
+
+    this.l = gui.addFolder("Right");
+    let lightPos = ["lightPosi01", "lightPosi02", "lightPosi03", "light01", "light02"]
+    for (let index = 0; index < lightPos.length; index++) {
+     this.l.add(this, lightPos[index]).name(lightPos[index]).onChange(() => {
+      this.addLight()
+     });
+    }
+
+    this.r = gui.addFolder("Rotation");
+    let arrRotation = ["meshRotationX", "meshRotationY"]
+    for (let index = 0; index < arrRotation.length; index++) {
+     this.r.add(this, arrRotation[index]).name(arrRotation[index]).min(0).max(2000).onChange(() => {
+      const x = this.meshRotationX;
+      const y = this.meshRotationY;
+      this.mesh.rotation.x = this.meshRotationX;
+      this.mesh.rotation.y = this.meshRotationY;
+      if (x === this.mesh.rotation.x || y === this.mesh.rotation.y) {
+       this.renderer.render(this.scene, this.camera)
+      }
+     });
+    }
+
+
+   }
+   getView() {}
+   addCamera() {
+    // this.camera = new THREE.PerspectiveCamera
+   }
+   guiSetUp() {
+    this.gui = new dat.GUI()
+    this.gui.add()
+   }
+   addLight() {
+    const directionalLight = new THREE.DirectionalLight(0xffffff);
+    directionalLight.position.set(this.lightPosi01, this.lightPosi02, this.lightPosi03);
+    this.scene.add(directionalLight);
+
+    const pointLight = new THREE.PointLight(0xffffff, this.light01, this.light02);
+    this.scene.add(pointLight);
+    const pointLightHelper = new THREE.PointLightHelper(pointLight, 20)
+    this.scene.add(pointLightHelper);
+   }
+   formalStyleChange() {
+    this.mesh.geometry.dispose();
+    this.mesh.geometry = new THREE.TorusGeometry(this.body, this.lx, this.lz, this.ly);
+    this.renderer.render(this.scene, this.camera)
+   }
+
+  }
+
+  let effect = new noteChange(
+   document.querySelector('#stage'),
+   'item'
+  );
+
+  window.addEventListener('load', function () {
+   effect.init();
+  })
+ </script>
+</body>
+
+</html>

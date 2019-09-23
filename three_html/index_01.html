@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta http-equiv="X-UA-Compatible" content="ie=edge">
+ <title>THREE.js</title>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/99/three.min.js"></script>
+</head>
+<style>
+ html,
+ body {
+  width: 100%;
+  height: 100%;
+ }
+
+ * {
+  margin: 0;
+  padding: 0;
+ }
+</style>
+
+<body>
+ <section class="l-section">
+  <h1>three</h1>
+  <canvas id="stage"></canvas>
+ </section>
+ <script>
+  let arryListMesh = [];
+
+  class boxGroup extends THREE.Group {
+   constructor() {
+    super();
+
+    const SIZE = 500;
+    const LENGTH = 600;
+    const geo = new THREE.Geometry();
+    const mouse = new THREE.Vector2();
+    let allMesh;
+
+    let materi = new THREE.MeshNormalMaterial();
+    let r = -1
+    for (let n = 0; n < LENGTH; n++) {
+     let random_l = 10 * (Math.random() * (0.5 + n))
+     let phi = (n * Math.PI) / 180
+     let theta = (n * Math.PI) / 180
+     let pos_x = random_l * Math.cos(phi) * Math.cos(theta) * -1;
+     let pos_y = random_l * Math.sin(phi);
+     let pos_z = random_l * Math.cos(phi) * Math.cos(theta) * -1;
+
+     const meshTemp = new THREE.Mesh(
+      new THREE.BoxGeometry(20, 20, 20)
+     );
+
+     meshTemp.position.x = (Math.random() - 0.5) * 2000;
+     meshTemp.position.y = (Math.random() - 0.5) * 2000;
+     meshTemp.position.z = (Math.random() - 0.5) * 2000;
+     arryListMesh.push(meshTemp)
+     geo.mergeMesh(meshTemp)
+
+    }
+
+    const lll = new THREE.Mesh(geo, materi);
+    allMesh = lll
+    this.add(lll);
+   }
+  }
+
+  class boxGroup02 extends THREE.Group {
+   constructor() {
+    super();
+    for (let n = 0; n < 10; n++) {
+     const geo = new THREE.IcosahedronGeometry(20, 1);
+     const material = new THREE.MeshBasicMaterial({
+      color: 0xa6b5d7,
+      wireframe: true
+     });
+
+     const lll = new THREE.Mesh(geo, material);
+     const radian = n / 10 * Math.PI * 2;
+
+     lll.position.set(
+      -100 * Math.cos(radian),
+      130,
+      200 * Math.sin(radian),
+     );
+
+     this.add(lll);
+    }
+   }
+  }
+
+  let init = function () {
+   const canvasElement = document.getElementById('stage');
+   const width = window.innerWidth;
+   const heigth = window.innerHeight;
+   const mouse = new THREE.Vector2();
+   const scene = new THREE.Scene();
+   let group = new boxGroup();
+
+   scene.add(group);
+
+   const camera = new THREE.PerspectiveCamera(45, 10.0);
+   camera.updateProjectionMatrix();
+
+   camera.position.set(0, 0, +600);
+   const renderer = new THREE.WebGLRenderer({
+    canvas: canvasElement,
+    antialias: true
+   });
+
+   renderer.setPixelRatio(window.devicePixelRatio);
+   camera.aspect = width / heigth;
+   camera.updateProjectionMatrix();
+   renderer.setSize(width, heigth);
+   renderer.render(scene, camera);
+   let raycaster = new THREE.Raycaster();
+
+   let settings = {
+    __one: function () {
+     const intersects = raycaster.intersectObjects(scene.children)
+     if (intersects.length > 0) {
+      group.rotation.y += 0.04;
+     }
+     renderer.render(scene, camera)
+     group.rotation.x += (Math.cos(10) * Math.cos(20) * -1) * 0.01;
+     group.rotation.y += 0.01;
+     raycaster.setFromCamera(mouse, camera)
+     requestAnimationFrame(settings.__one)
+    },
+    __next: function (e) {
+     const element = e.currentTarget
+     const x = e.x - element.offsetLeft
+     const y = e.y - element.offsetTop
+     const w = element.offsetWidth
+     const h = element.offsetHeight
+     mouse.x = (x / y) * 2 - 1;
+     mouse.y = (y / x) * 2 + 1;
+    },
+    __action: function () {
+     raycaster.setFromCamera(mouse, camera)
+     const intersects = raycaster.intersectObjects(arryListMesh)
+     arryListMesh.map(allMesh => {
+      if (intersects.length > 0 && allMesh === intersects[0].object) {
+       allMesh.material.color.setHex(0xff0000);
+       console.log(allMesh.material.color)
+      } else {
+       allMesh.material.color.setHex(0xffffff);
+       // console.log('-----------------------------------------------------')
+      }
+     })
+    }
+   }
+   settings.__one();
+   // canvasElement.addEventListener('mousemove', function (e) {
+   //  settings.__action(e)
+   // })
+  }
+
+
+  window.addEventListener('load', function () {
+   init();
+  })
+ </script>
+</body>
+
+</html>
